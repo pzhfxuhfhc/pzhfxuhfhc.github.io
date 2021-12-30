@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Web Share Target</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="/common.js" defer></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4a148c">
+    <!-- for iOS -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Stats Summary">
+    -->
+  </head>  
+  <body>
+    2021/12/30 14:25版
+    <div id='result'>結果が表示される場所</div><br>
+    <!--
+    <hr>
+    <div id='text'>デバッグ用</div><br>
+    <hr>
+    <div id='text2'>デバッグ用</div><br>
+    <hr>
+    <div id='stats'>デバッグ用</div><br>
+    -->
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+          const parsedUrl = new URL(window.location);
+	  const text = parsedUrl.searchParams.get('text');
+	  const text2 = text.match (/\d\d:\d\d:\d\d.*$/m) [0];
+	  const stats = text2.split (/\s/);
+	  const result = 
+		"AP " + stats [2] +
+		"<br>Purifier "  + stats [26] +
+		"<br>Liberator "  + stats [18] +
+		"<br>Pioneer "   + stats [19] +
+		"<br>Explorer "  + stats [4] +
+		"<br>Mind controller "  + stats [13] +
+		"<br>Engineer "  + stats [20] +
+		"<br>Hacker "  + stats [21] +
+		"<br>Connector "  + stats [12] +
+		"<br>Spec Ops "  + stats [39] +
+		"<br>Recon "   + stats [10] +
+		"<br>Seer "  + stats [8] +
+		"<br>Drone returned "+ stats [30];
+          document.getElementById('result').innerHTML = result;
+          document.getElementById('text').innerHTML = text;
+          document.getElementById('text2').innerHTML = text2;
+          document.getElementById('stats').innerHTML = stats;
+
+/*
+0: AP:262581014
+25: purifier 516827
+17: liberator 72689
+18: pioneer  10496
+3: explorer  20151
+12: mind controller  74739
+19: engineer 105289
+20: hacker 292092
+11: connector  120202
+38: spec ops  1485
+9: recon  1156
+7: seer 3
+29: drone returned 
+*/
+      });
+    </script>
+  </body>
+</html>
+

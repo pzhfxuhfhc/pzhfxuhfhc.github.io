@@ -21,7 +21,7 @@
     -->
   </head>  
   <body>
-    2022/1/2 19:35版
+    2022/1/2 19:40版
     <button id="button">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
     <!--
@@ -38,13 +38,12 @@
 	  // コピーボタンの設定
 	  const button = document.getElementById('button');
 	  button.addEventListener('click', () => {
-	      document.execCommand("SelectAll");
 	      const copyTarget = document.getElementById("result");
 	      // navigator.clipboard.writeText(copyTarget.value);
 	      // navigator.clipboard.writeText("hogehoge");
 	      document.execCommand ("SelectAll");
 	      document.execCommand ("copy");
-	      alert (copyTarget.value);
+	      alert (copyTarget.innerText);
 	  });
 
 	  // 結果表示の処理

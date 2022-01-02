@@ -37,7 +37,6 @@
       button.addEventListener('click', () => {
 	  const copyTarget = document.getElementById("result");
 	  navigator.clipboard.writeText(copyTarget.value);
-          alert("コピーできました！ : " + copyTarget.value);
       });
       window.addEventListener('DOMContentLoaded', () => {
           const parsedUrl = new URL(window.location);

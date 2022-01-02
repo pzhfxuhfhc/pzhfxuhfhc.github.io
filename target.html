@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="style.css">
     
     <!-- import the webpage's javascript file -->
+<!--
     <script src="/common.js" defer></script>
     <link rel="manifest" href="/manifest.json">
+-->
     <meta name="theme-color" content="#4a148c">
     <!-- for iOS -->
     <!--
@@ -21,8 +23,19 @@
     -->
   </head>  
   <body>
+    2022/1/2 12:29版
+    <button id="button">Copy</button>
+    <div id='result'>結果が表示される場所</div><br>
+    <!--
+    <hr>
+    <div id='text'>デバッグ用</div><br>
+    <hr>
+    <div id='text2'>デバッグ用</div><br>
+    <hr>
+    <div id='stats'>デバッグ用</div><br>
+    -->
     <script>
-      const button = document.querySelector('#button')
+      const button = document.getElementById('button')
       const copyTarget = document.getElementById("result");
       button.addEventListener('click', () => {
 	  navigator.clipboard.writeText(copyTarget.value)
@@ -69,17 +82,6 @@
 */
       });
     </script>
-    2022/1/2 12:24版
-    <button id="button">Copy</button>
-    <div id='result'>結果が表示される場所</div><br>
-    <!--
-    <hr>
-    <div id='text'>デバッグ用</div><br>
-    <hr>
-    <div id='text2'>デバッグ用</div><br>
-    <hr>
-    <div id='stats'>デバッグ用</div><br>
-    -->
   </body>
 </html>
 

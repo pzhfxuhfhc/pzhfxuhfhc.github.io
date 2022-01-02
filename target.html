@@ -22,13 +22,12 @@
   </head>  
   <body>
     <script>
-      function copyToClipboard() {
-          var copyTarget = document.getElementById("result");
-          copyTarget.select();
-          document.execCommand("Copy");
+      const button = document.querySelector('#button')
+      const copyTarget = document.getElementById("result");
+      button.addEventListener('click', () => {
+	  navigator.clipboard.writeText(copyTarget.value)
           alert("コピーできました！ : " + copyTarget.value);
-
-      };
+      });
       window.addEventListener('DOMContentLoaded', () => {
           const parsedUrl = new URL(window.location);
 	  const text = parsedUrl.searchParams.get('text');
@@ -71,8 +70,8 @@
       });
     </script>
     2022/1/2 12:15版
+    <button id="button">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
-    <button onclick="copyToClipboard()">Copy text</button>
     <!--
     <hr>
     <div id='text'>デバッグ用</div><br>

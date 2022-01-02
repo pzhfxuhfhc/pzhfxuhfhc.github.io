@@ -21,7 +21,7 @@
     -->
   </head>  
   <body>
-    2022/1/2 19:47版
+    2022/1/2 19:54版
     <button id="button">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
     <!--
@@ -46,7 +46,7 @@
 	      document.body.appendChild(textarea);
 	      textarea.select();
 	      document.execCommand ("copy");
-	      ta.parentElement.removeChild(textarea);
+	      textarea.parentElement.removeChild(textarea);
 	  });
 
 	  // 結果表示の処理

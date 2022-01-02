@@ -23,6 +23,7 @@
   <body>
     2021/12/30 15:25版
     <div id='result'>結果が表示される場所</div><br>
+    <button onclick="copyToClipboard()">Copy text</button>
     <!--
     <hr>
     <div id='text'>デバッグ用</div><br>
@@ -32,6 +33,12 @@
     <div id='stats'>デバッグ用</div><br>
     -->
     <script>
+      function copyToClipboard() {
+          var copyTarget = document.getElementById("result");
+          copyTarget.select();
+          document.execCommand("Copy");
+          alert("コピーできました！ : " + copyTarget.value);
+      };
       window.addEventListener('DOMContentLoaded', () => {
           const parsedUrl = new URL(window.location);
 	  const text = parsedUrl.searchParams.get('text');
@@ -50,7 +57,7 @@
 		"<br>Spec Ops "  + stats [39] +
 		"<br>Recon "   + stats [10] +
 		"<br>Seer "  + stats [8] +
-		"<br>Drone returned "+ stats [30];
+		"<br>Drone returned "+ stats [30] ;
           document.getElementById('result').innerHTML = result;
           document.getElementById('text').innerHTML = text;
           document.getElementById('text2').innerHTML = text2;

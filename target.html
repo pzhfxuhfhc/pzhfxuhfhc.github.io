@@ -35,14 +35,17 @@
     <script>
       window.addEventListener('DOMContentLoaded', () => {
 
+	  // コピーボタンの設定
 	  const button = document.getElementById('button');
 	  button.addEventListener('click', () => {
+	      document.execCommand("SelectAll");
 	      const copyTarget = document.getElementById("result");
 	      // navigator.clipboard.writeText(copyTarget.value);
 	      navigator.clipboard.writeText("hogehoge");
 	      alert (copyTarget.value);
 	  });
 
+	  // 結果表示の処理
           const parsedUrl = new URL(window.location);
 	  const text = parsedUrl.searchParams.get('text');
 	  const text2 = text.match (/\d\d:\d\d:\d\d.*$/m) [0];

@@ -21,7 +21,7 @@
     -->
   </head>  
   <body>
-    2022/1/2 12:32版
+    2022/1/2 12:33版
     <button id="button">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
     <!--
@@ -33,12 +33,14 @@
     <div id='stats'>デバッグ用</div><br>
     -->
     <script>
+/*
       const button = document.getElementById('button')
       const copyTarget = document.getElementById("result");
       button.addEventListener('click', () => {
 	  navigator.clipboard.writeText(copyTarget.value)
           alert("コピーできました！ : " + copyTarget.value);
       });
+*/
       window.addEventListener('DOMContentLoaded', () => {
           const parsedUrl = new URL(window.location);
 	  const text = parsedUrl.searchParams.get('text');

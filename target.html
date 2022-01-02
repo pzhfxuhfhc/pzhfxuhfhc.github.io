@@ -21,7 +21,7 @@
     -->
   </head>  
   <body>
-    2022/1/2 19:40版
+    2022/1/2 19:45版
     <button id="button">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
     <!--
@@ -41,9 +41,11 @@
 	      const copyTarget = document.getElementById("result");
 	      // navigator.clipboard.writeText(copyTarget.value);
 	      // navigator.clipboard.writeText("hogehoge");
-	      document.execCommand ("SelectAll");
+	      var textarea = document.createElement("textarea");
+	      textarea.value = copyTarget.innerText;
+	      document.body.appendChild(textarea);
+	      textarea.select();
 	      document.execCommand ("copy");
-	      alert (copyTarget.innerText);
 	  });
 
 	  // 結果表示の処理

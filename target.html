@@ -21,7 +21,7 @@
     -->
   </head>  
   <body>
-    2021/12/30 15:25版
+    2022/1/2 12:12版
     <div id='result'>結果が表示される場所</div><br>
     <button onclick="copyToClipboard()">Copy text</button>
     <!--
@@ -38,6 +38,7 @@
           copyTarget.select();
           document.execCommand("Copy");
           alert("コピーできました！ : " + copyTarget.value);
+
       };
       window.addEventListener('DOMContentLoaded', () => {
           const parsedUrl = new URL(window.location);

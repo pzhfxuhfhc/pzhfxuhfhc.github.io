@@ -21,15 +21,15 @@
     -->
   </head>  
   <body>
-    2022/3/25 13:35版
+    2022/3/25 17:20版
     <button id="button" class="btn-square">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
+    <hr>
+    <div id='line1'>デバッグ用</div><br>
+    <hr>
+    <div id='line2'>デバッグ用</div><br>
+    <hr>
     <!--
-    <hr>
-    <div id='text'>デバッグ用</div><br>
-    <hr>
-    <div id='text2'>デバッグ用</div><br>
-    <hr>
     <div id='stats'>デバッグ用</div><br>
     -->
     <script>
@@ -75,9 +75,9 @@
 		"<br>Seer "             + dict ["Seer Points"] +
 		"<br>Drone returned "   + dict ["Drones Returned"] ;
           document.getElementById('result').innerHTML = result;
+          document.getElementById('line1').innerHTML = line1;
+          document.getElementById('line2').innerHTML = line2;
 	  /*
-          document.getElementById('text').innerHTML = text;
-          document.getElementById('text2').innerHTML = text2;
           document.getElementById('stats').innerHTML = stats;
 	  */
       });

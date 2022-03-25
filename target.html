@@ -21,7 +21,7 @@
     -->
   </head>  
   <body>
-    2022/2/11 13:35版
+    2022/3/25 13:35版
     <button id="button" class="btn-square">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
     <!--
@@ -51,42 +51,33 @@
 	  // 結果表示の処理
           const parsedUrl = new URL(window.location);
 	  const text = parsedUrl.searchParams.get('text');
-	  const text2 = text.match (/\d\d:\d\d:\d\d.*$/m) [0];
-	  const stats = text2.split (/\s/);
+	  const line1 = text.substr (0, text.indexOf ("ALL TIME"));
+	  const line1_arr = line1.split ('\t');
+	  const line2 = text.match (/ALL TIME.*$/m) [0];
+	  const line2_arr = line2.split ('\t');
+	  var dict = {}; // 空の辞書
+	  for (const i in line1_arr) {
+	      dict [line1_arr [i]] = line2_arr [i]; // 辞書に登録
+	  }
+	  // console.log ("level = " + dict ["Level"]);
 	  const result = 
-		"AP " + stats [2] +
-		"<br>Purifier "  + stats [26] +
-		"<br>Liberator "  + stats [18] +
-		"<br>Pioneer "   + stats [19] +
-		"<br>Explorer "  + stats [4] +
-		"<br>Mind controller "  + stats [13] +
-		"<br>Engineer "  + stats [20] +
-		"<br>Hacker "  + stats [21] +
-		"<br>Connector "  + stats [12] +
-		"<br>Spec Ops "  + stats [40] +
-		"<br>Recon "   + stats [10] +
-		"<br>Seer "  + stats [8] +
-		"<br>Drone returned "+ stats [31] ;
+		"AP " + dict ["Current AP"] +
+		"<br>Purifier "         + dict ["Resonators Destroyed"] +
+		"<br>Liberator "        + dict ["Portals Captured"] +
+		"<br>Pioneer "          + dict ["Unique Portals Captured"] +
+		"<br>Explorer "         + dict ["Unique Portals Visited"] +
+		"<br>Mind controller "  + dict ["Control Fields Created"] +
+		"<br>Engineer "         + dict ["Mods Deployed"] +
+		"<br>Hacker "           + dict ["Hacks"] +
+		"<br>Connector "        + dict ["Links Created"] +
+		"<br>Spec Ops "         + dict ["Unique Missions Completed"] +
+		"<br>Recon "            + dict ["OPR Agreements"] +
+		"<br>Seer "             + dict ["Seer Points"] +
+		"<br>Drone returned "   + dict ["Drones Returned"] ;
           document.getElementById('result').innerHTML = result;
           document.getElementById('text').innerHTML = text;
           document.getElementById('text2').innerHTML = text2;
           document.getElementById('stats').innerHTML = stats;
-
-/*
-0: AP:262581014
-25: purifier 516827
-17: liberator 72689
-18: pioneer  10496
-3: explorer  20151
-12: mind controller  74739
-19: engineer 105289
-20: hacker 292092
-11: connector  120202
-38: spec ops  1485
-9: recon  1156
-7: seer 3
-29: drone returned 
-*/
       });
     </script>
   </body>

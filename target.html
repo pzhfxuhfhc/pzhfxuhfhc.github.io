@@ -21,7 +21,7 @@
     -->
   </head>  
   <body>
-    2022/3/25 18:01版
+    2022/5/30 11:04版
     <button id="button" class="btn-square">Copy</button>
     <div id='result'>結果が表示される場所</div><br>
     <!--
@@ -30,8 +30,8 @@
     <hr>
     <div id='line2'>デバッグ用</div><br>
     <hr>
-    -->
     <div id='line1_arr'>デバッグ用</div><br>
+    -->
     <script>
       window.addEventListener('DOMContentLoaded', () => {
 	  // コピーボタンの設定
@@ -75,6 +75,10 @@
 		"<br>Recon "            + dict ["OPR Agreements"] +
 		"<br>Seer "             + dict ["Seer Points"] +
 		"<br>Drone returned "   + dict ["Drones Returned"] ;
+		"<br>Portal Scans Uploaded "   + dict ["Portal Scans Uploaded"] ;
+		"<br>Uniques Scout Controlled "   + dict ["Uniques Scout Controlled"] ;
+
+
           document.getElementById('result').innerHTML = result;
 	  /*
           document.getElementById('line1').innerHTML = line1;

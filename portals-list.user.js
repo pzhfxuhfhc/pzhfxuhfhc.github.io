@@ -212,7 +212,7 @@ window.plugin.portalslist.getPortals = function() {
     retval=true;
 
     var counts = window.plugin.portalslist.counts;
-    counts[window.plugin.portalslist.FACTION_FILTERS[portal.options.team]]++;
+//    counts[window.plugin.portalslist.FACTION_FILTERS[portal.options.team]]++;
 
     if (portal.options.data.history.visited) counts[window.plugin.portalslist.HISTORY_FILTERS[0]]++;
     if (portal.options.data.history.captured) counts[window.plugin.portalslist.HISTORY_FILTERS[1]]++;

@@ -1,8 +1,12 @@
+// ==UserScript==
 // @author         teo96
 // @name           Portals list
 // @category       Info
 // @version        0.4.3
 // @description    Display a sortable list of all visible portals with full details about the team, resonators, links, etc.
+// @match          https://intel.ingress.com/*
+// @grant          none
+// ==/UserScript==
 
 /* global IITC, plugin -- eslint */
 /* exported setup, changelog --eslint */

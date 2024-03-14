@@ -366,7 +366,7 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
       }
 
       var name = window.plugin.portalslist.FILTERS[i];
-      var count = window.plugin.portalslist.counts[name];
+//      var count = window.plugin.portalslist.counts[name];
       cell.textContent = count + ' (' + Math.round(count/length*100) + '%)';
     }
   });

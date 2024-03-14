@@ -533,6 +533,36 @@ function wrapper(plugin_info) {
   // The entry point for this plugin.
   function setup() {
     alert('Hello, IITC!');
+  window.plugin.portalslist.FACTION_FILTERS = window.TEAM_NAMES;
+  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
+  window.plugin.portalslist.ALL_FACTION_FILTERS = ['All', ...window.plugin.portalslist.FACTION_FILTERS];
+  window.plugin.portalslist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
+  window.plugin.portalslist.FILTERS = [...window.plugin.portalslist.ALL_FACTION_FILTERS, ...window.plugin.portalslist.HISTORY_FILTERS];
+
+  window.plugin.portalslist.listPortals = [];
+  window.plugin.portalslist.sortBy = 1; // second column: level
+  window.plugin.portalslist.sortOrder = -1;
+  window.plugin.portalslist.counts = zeroCounts();
+  window.plugin.portalslist.filter = 0;
+
+  if (window.useAppPanes()) {
+    app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
+    addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
+  } else {
+    IITC.toolbox.addButton({
+      label: 'Portals list',
+      title: 'Display a list of portals in the current view [t]',
+      action: window.plugin.portalslist.displayPL,
+      accesskey: 't',
+    });
+  }
+
+    console.log ("setup called#1");
+  $("<style>")
+    .prop("type", "text/css")
+    .html('@include_string:portals-list.css@')
+    .appendTo("head");
+    console.log ("setup called#2");
   }
 
   // Add an info property for IITC's plugin system

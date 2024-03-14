@@ -4,6 +4,8 @@
 // @category       Info
 // @version        0.0.1.20240314
 // @description    Itomai list
+// @updateURL      
+// @downloadURL    
 // @id             itomai-list@gyontarl
 // @match          https://intel.ingress.com/*
 // @grant          none

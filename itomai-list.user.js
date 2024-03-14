@@ -474,7 +474,7 @@ var setup =  function() {
     addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
   } else {
     IITC.toolbox.addButton({
-      label: 'Portals list',
+      label: 'Itomai list',
       title: 'Display a list of portals in the current view [t]',
       action: window.plugin.portalslist.displayPL,
       accesskey: 't',

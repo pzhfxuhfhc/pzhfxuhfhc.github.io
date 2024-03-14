@@ -260,9 +260,8 @@ window.plugin.portalslist.displayPL = function() {
   if (window.plugin.portalslist.getPortals()) {
     list = window.plugin.portalslist.portalTable(window.plugin.portalslist.sortBy, window.plugin.portalslist.sortOrder,window.plugin.portalslist.filter, false);
   } else {
+    list = $('<table class="noPortals"><tr><td>Nothing to show!</td></tr></table>');
   };
-
-  list = $('<table class="noPortals"><tr><td>Hogehoge!</td></tr></table>');
 
   if (window.useAppPanes()) {
     $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);

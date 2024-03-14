@@ -4,8 +4,8 @@
 // @category       Info
 // @version        0.0.1.20240314
 // @description    Itomai list
-// @updateURL      
-// @downloadURL    
+// @updateURL      https://pzhfxuhfhc.github.io/itomai-list.user.js
+// @downloadURL    https://pzhfxuhfhc.github.io/itomai-list.user.js
 // @id             itomai-list@gyontarl
 // @match          https://intel.ingress.com/*
 // @grant          none
@@ -13,8 +13,8 @@
 
 var changelog = [
   {
-    version: '0.4.3',
-    changes: ['Moved "portalApGainMaths" function from core to portalList plugin', 'IITC.toolbox API is used to create plugin buttons'],
+    version: '0.0.1',
+    changes: ['Initial version'],
   },
 ];
 
@@ -481,10 +481,10 @@ var setup =  function() {
     });
   }
 
-  $("<style>")
-    .prop("type", "text/css")
-    .html('@include_string:portals-list.css@')
-    .appendTo("head");
+//  $("<style>")
+//    .prop("type", "text/css")
+//    .html('@include_string:portals-list.css@')
+//    .appendTo("head");
 };
 
 // given counts of resonators, links and fields, calculate the available AP

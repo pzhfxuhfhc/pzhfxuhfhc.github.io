@@ -422,6 +422,7 @@ Click on <b>${window.plugin.portalslist.ALL_FACTION_FILTERS.join(', ')}</b> to o
 Click on <b>${window.plugin.portalslist.HISTORY_FILTERS.join(', ')}</b> to only show portals the user has a history for or on the number to hide those.
 </div>`);
 
+    console.log (container);
   return container;
 }
 

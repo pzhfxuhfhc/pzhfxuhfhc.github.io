@@ -237,7 +237,7 @@ window.plugin.portalslist.getPortals = function() {
       obj.sortValues.push(field.sortValue ? field.sortValue(value, portal) : value);
 
       if(field.format) {
-        field.format(cell, portal, value);
+//        field.format(cell, portal, value);
       } else {
         cell.textContent = value;
       }

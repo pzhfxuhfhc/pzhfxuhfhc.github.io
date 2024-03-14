@@ -475,7 +475,7 @@ var setup =  function() {
   } else {
     IITC.toolbox.addButton({
       label: 'Itomai list',
-      title: 'Display a list of portals in the current view [t]',
+      title: 'Display a list of itomai portals in the current view [t]',
       action: window.plugin.portalslist.displayPL,
       accesskey: 't',
     });

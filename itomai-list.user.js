@@ -1,6 +1,6 @@
 // ==UserScript==
 // @author         teo96
-// @name           Portals list
+// @name           Itomai list
 // @category       Info
 // @version        0.4.3
 // @description    Display a sortable list of all visible portals with full details about the team, resonators, links, etc.
@@ -546,11 +546,11 @@ function wrapper(plugin_info) {
   window.plugin.portalslist.filter = 0;
 
   if (window.useAppPanes()) {
-    app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
+    app.addPane("plugin-portalslist", "Itomai list", "ic_action_paste");
     addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
   } else {
     IITC.toolbox.addButton({
-      label: 'Portals list',
+      label: 'Itomai list',
       title: 'Display a list of portals in the current view [t]',
       action: window.plugin.portalslist.displayPL,
       accesskey: 't',

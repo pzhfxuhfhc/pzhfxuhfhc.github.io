@@ -214,9 +214,9 @@ window.plugin.portalslist.getPortals = function() {
     var counts = window.plugin.portalslist.counts;
 //    counts[window.plugin.portalslist.FACTION_FILTERS[portal.options.team]]++;
 
-    if (portal.options.data.history.visited) counts[window.plugin.portalslist.HISTORY_FILTERS[0]]++;
-    if (portal.options.data.history.captured) counts[window.plugin.portalslist.HISTORY_FILTERS[1]]++;
-    if (portal.options.data.history.scoutControlled) counts[window.plugin.portalslist.HISTORY_FILTERS[2]]++;
+//    if (portal.options.data.history.visited) counts[window.plugin.portalslist.HISTORY_FILTERS[0]]++;
+//    if (portal.options.data.history.captured) counts[window.plugin.portalslist.HISTORY_FILTERS[1]]++;
+//    if (portal.options.data.history.scoutControlled) counts[window.plugin.portalslist.HISTORY_FILTERS[2]]++;
 
     // cache values and DOM nodes
     var obj = { portal: portal, values: [], sortValues: [] };

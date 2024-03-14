@@ -481,10 +481,12 @@ var setup =  function() {
     });
   }
 
+    console.log ("setup called#1");
   $("<style>")
     .prop("type", "text/css")
     .html('@include_string:portals-list.css@')
     .appendTo("head");
+    console.log ("setup called#2");
 };
 
 // given counts of resonators, links and fields, calculate the available AP

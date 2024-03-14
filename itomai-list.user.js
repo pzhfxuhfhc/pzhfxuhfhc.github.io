@@ -1,20 +1,20 @@
 // ==UserScript==
-// @author         gyontarl
-// @name           Itomai list
+// @author         teo96
+// @name           Portals list
 // @category       Info
-// @version        0.0.1.20240314
-// @description    Itomai list
-// @updateURL      https://pzhfxuhfhc.github.io/itomai-list.user.js
-// @downloadURL    https://pzhfxuhfhc.github.io/itomai-list.user.js
-// @id             itomai-list@gyontarl
+// @version        0.4.3
+// @description    Display a sortable list of all visible portals with full details about the team, resonators, links, etc.
 // @match          https://intel.ingress.com/*
 // @grant          none
 // ==/UserScript==
 
+/* global IITC, plugin -- eslint */
+/* exported setup, changelog --eslint */
+
 var changelog = [
   {
-    version: '0.0.1',
-    changes: ['Initial version'],
+    version: '0.4.3',
+    changes: ['Moved "portalApGainMaths" function from core to portalList plugin', 'IITC.toolbox API is used to create plugin buttons'],
   },
 ];
 
@@ -212,11 +212,11 @@ window.plugin.portalslist.getPortals = function() {
     retval=true;
 
     var counts = window.plugin.portalslist.counts;
-    counts[window.plugin.portalslist.FACTION_FILTERS[portal.options.team]]++;
+//    counts[window.plugin.portalslist.FACTION_FILTERS[portal.options.team]]++;
 
-    if (portal.options.data.history.visited) counts[window.plugin.portalslist.HISTORY_FILTERS[0]]++;
-    if (portal.options.data.history.captured) counts[window.plugin.portalslist.HISTORY_FILTERS[1]]++;
-    if (portal.options.data.history.scoutControlled) counts[window.plugin.portalslist.HISTORY_FILTERS[2]]++;
+//    if (portal.options.data.history.visited) counts[window.plugin.portalslist.HISTORY_FILTERS[0]]++;
+//    if (portal.options.data.history.captured) counts[window.plugin.portalslist.HISTORY_FILTERS[1]]++;
+//    if (portal.options.data.history.scoutControlled) counts[window.plugin.portalslist.HISTORY_FILTERS[2]]++;
 
     // cache values and DOM nodes
     var obj = { portal: portal, values: [], sortValues: [] };
@@ -237,7 +237,7 @@ window.plugin.portalslist.getPortals = function() {
       obj.sortValues.push(field.sortValue ? field.sortValue(value, portal) : value);
 
       if(field.format) {
-        field.format(cell, portal, value);
+//        field.format(cell, portal, value);
       } else {
         cell.textContent = value;
       }
@@ -254,7 +254,7 @@ window.plugin.portalslist.displayPL = function() {
   // plugins (e.g. bookmarks) can insert fields before the standard ones - so we need to search for the 'level' column
   window.plugin.portalslist.sortBy = window.plugin.portalslist.fields.map(function(f){return f.title;}).indexOf('Level');
   window.plugin.portalslist.sortOrder = -1;
-  window.plugin.portalslist.counts = zeroCounts();
+//  window.plugin.portalslist.counts = zeroCounts();
   window.plugin.portalslist.filter = 0;
 
   if (window.plugin.portalslist.getPortals()) {
@@ -366,8 +366,8 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
       }
 
       var name = window.plugin.portalslist.FILTERS[i];
-      var count = window.plugin.portalslist.counts[name];
-      cell.textContent = count + ' (' + Math.round(count/length*100) + '%)';
+//      var count = window.plugin.portalslist.counts[name];
+//      cell.textContent = count + ' (' + Math.round(count/length*100) + '%)';
     }
   });
 
@@ -458,7 +458,7 @@ window.plugin.portalslist.onPaneChanged = function(pane) {
 
 var setup =  function() {
   window.plugin.portalslist.FACTION_FILTERS = window.TEAM_NAMES;
-  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
+//  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
   window.plugin.portalslist.ALL_FACTION_FILTERS = ['All', ...window.plugin.portalslist.FACTION_FILTERS];
   window.plugin.portalslist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
   window.plugin.portalslist.FILTERS = [...window.plugin.portalslist.ALL_FACTION_FILTERS, ...window.plugin.portalslist.HISTORY_FILTERS];
@@ -466,23 +466,22 @@ var setup =  function() {
   window.plugin.portalslist.listPortals = [];
   window.plugin.portalslist.sortBy = 1; // second column: level
   window.plugin.portalslist.sortOrder = -1;
-  window.plugin.portalslist.counts = zeroCounts();
+//  window.plugin.portalslist.counts = zeroCounts();
   window.plugin.portalslist.filter = 0;
 
   if (window.useAppPanes()) {
-    app.addPane("plugin-portalslist", "Itomai list", "ic_action_paste");
+    app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
     addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
   } else {
     IITC.toolbox.addButton({
-      label: 'Itomai list',
-      title: 'Display a list of itomai portals in the current view [t]',
+      label: 'Portals list',
+      title: 'Display a list of portals in the current view [t]',
       action: window.plugin.portalslist.displayPL,
       accesskey: 't',
     });
   }
 
     console.log ("setup called#1");
-
   $("<style>")
     .prop("type", "text/css")
     .html('@include_string:portals-list.css@')
@@ -515,15 +514,85 @@ window.plugin.portalslist.portalApGainMaths = function (resCount, linkCount, fie
   };
 };
 
-setup.info = plugin_info; //add the script info data to the function as a property
-if(!window.bootPlugins) window.bootPlugins = [];
-window.bootPlugins.push(setup);
-// if IITC has already booted, immediately run the 'setup' function
-if(window.iitcLoaded && typeof setup === 'function') setup();
-} // wrapper end
-// inject code into site context
+// ============================================================
+
+function wrapper(plugin_info) {
+  // Make sure that window.plugin exists. IITC defines it as a no-op function,
+  // and other plugins assume the same.
+  if(typeof window.plugin !== 'function') window.plugin = function() {};
+
+  // Name of the IITC build for first-party plugins
+  plugin_info.buildName = 'hello';
+
+  // Datetime-derived version of the plugin
+  plugin_info.dateTimeVersion = '20150829103500';
+
+  // ID/name of the plugin
+  plugin_info.pluginId = 'hello';
+
+  // The entry point for this plugin.
+  function setup() {
+    alert('Hello, IITC!');
+  window.plugin.portalslist.FACTION_FILTERS = window.TEAM_NAMES;
+//  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
+  window.plugin.portalslist.ALL_FACTION_FILTERS = ['All', ...window.plugin.portalslist.FACTION_FILTERS];
+  window.plugin.portalslist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
+  window.plugin.portalslist.FILTERS = [...window.plugin.portalslist.ALL_FACTION_FILTERS, ...window.plugin.portalslist.HISTORY_FILTERS];
+
+  window.plugin.portalslist.listPortals = [];
+  window.plugin.portalslist.sortBy = 1; // second column: level
+  window.plugin.portalslist.sortOrder = -1;
+//  window.plugin.portalslist.counts = zeroCounts();
+  window.plugin.portalslist.filter = 0;
+
+  if (window.useAppPanes()) {
+    app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
+    addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
+  } else {
+    IITC.toolbox.addButton({
+      label: 'Portals list',
+      title: 'Display a list of portals in the current view [t]',
+      action: window.plugin.portalslist.displayPL,
+      accesskey: 't',
+    });
+  }
+
+    console.log ("setup called#1");
+  $("<style>")
+    .prop("type", "text/css")
+    .html('@include_string:portals-list.css@')
+    .appendTo("head");
+    console.log ("setup called#2");
+  }
+
+  // Add an info property for IITC's plugin system
+  setup.info = plugin_info;
+
+  // Make sure window.bootPlugins exists and is an array
+  if (!window.bootPlugins) window.bootPlugins = [];
+  // Add our startup hook
+  window.bootPlugins.push(setup);
+  // If IITC has already booted, immediately run the 'setup' function
+  if (window.iitcLoaded && typeof setup === 'function') setup();
+}
+
+// Create a script element to hold our content script
 var script = document.createElement('script');
 var info = {};
-if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description };
-script.appendChild(document.createTextNode('('+ wrapper +')('+JSON.stringify(info)+');'));
+
+// GM_info is defined by the assorted monkey-themed browser extensions
+// and holds information parsed from the script header.
+if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) {
+  info.script = {
+    version: GM_info.script.version,
+    name: GM_info.script.name,
+    description: GM_info.script.description
+  };
+}
+
+// Create a text node and our IIFE inside of it
+var textContent = document.createTextNode('('+ wrapper +')('+ JSON.stringify(info) +')');
+// Add some content to the script element
+script.appendChild(textContent);
+// Finally, inject it... wherever.
 (document.body || document.head || document.documentElement).appendChild(script);

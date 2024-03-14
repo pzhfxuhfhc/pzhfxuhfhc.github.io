@@ -263,6 +263,8 @@ window.plugin.portalslist.displayPL = function() {
     list = $('<table class="noPortals"><tr><td>Nothing to show!</td></tr></table>');
   };
 
+  list = $('<table class="noPortals"><tr><td>Nothing to show!</td></tr></table>');
+
   if (window.useAppPanes()) {
     $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
   } else {
@@ -483,10 +485,10 @@ var setup =  function() {
   }
 
     console.log ("setup called#1");
-  $("<style>")
-    .prop("type", "text/css")
-    .html('@include_string:portals-list.css@')
-    .appendTo("head");
+//  $("<style>")
+//    .prop("type", "text/css")
+//    .html('@include_string:portals-list.css@')
+//    .appendTo("head");
     console.log ("setup called#2");
 };
 

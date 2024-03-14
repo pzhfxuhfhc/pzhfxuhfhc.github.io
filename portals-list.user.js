@@ -254,7 +254,7 @@ window.plugin.portalslist.displayPL = function() {
   // plugins (e.g. bookmarks) can insert fields before the standard ones - so we need to search for the 'level' column
   window.plugin.portalslist.sortBy = window.plugin.portalslist.fields.map(function(f){return f.title;}).indexOf('Level');
   window.plugin.portalslist.sortOrder = -1;
-  window.plugin.portalslist.counts = zeroCounts();
+//  window.plugin.portalslist.counts = zeroCounts();
   window.plugin.portalslist.filter = 0;
 
   if (window.plugin.portalslist.getPortals()) {
@@ -466,7 +466,7 @@ var setup =  function() {
   window.plugin.portalslist.listPortals = [];
   window.plugin.portalslist.sortBy = 1; // second column: level
   window.plugin.portalslist.sortOrder = -1;
-  window.plugin.portalslist.counts = zeroCounts();
+//  window.plugin.portalslist.counts = zeroCounts();
   window.plugin.portalslist.filter = 0;
 
   if (window.useAppPanes()) {
@@ -542,7 +542,7 @@ function wrapper(plugin_info) {
   window.plugin.portalslist.listPortals = [];
   window.plugin.portalslist.sortBy = 1; // second column: level
   window.plugin.portalslist.sortOrder = -1;
-  window.plugin.portalslist.counts = zeroCounts();
+//  window.plugin.portalslist.counts = zeroCounts();
   window.plugin.portalslist.filter = 0;
 
   if (window.useAppPanes()) {

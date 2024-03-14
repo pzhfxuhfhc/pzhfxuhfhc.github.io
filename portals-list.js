@@ -1,20 +1,16 @@
-// ==UserScript==
-// @author         gyontarl
-// @name           Itomai list
+// @author         teo96
+// @name           Portals list
 // @category       Info
-// @version        0.0.1.20240314
-// @description    Itomai list
-// @updateURL      https://pzhfxuhfhc.github.io/itomai-list.user.js
-// @downloadURL    https://pzhfxuhfhc.github.io/itomai-list.user.js
-// @id             itomai-list@gyontarl
-// @match          https://intel.ingress.com/*
-// @grant          none
-// ==/UserScript==
+// @version        0.4.3
+// @description    Display a sortable list of all visible portals with full details about the team, resonators, links, etc.
+
+/* global IITC, plugin -- eslint */
+/* exported setup, changelog --eslint */
 
 var changelog = [
   {
-    version: '0.0.1',
-    changes: ['Initial version'],
+    version: '0.4.3',
+    changes: ['Moved "portalApGainMaths" function from core to portalList plugin', 'IITC.toolbox API is used to create plugin buttons'],
   },
 ];
 
@@ -470,12 +466,12 @@ var setup =  function() {
   window.plugin.portalslist.filter = 0;
 
   if (window.useAppPanes()) {
-    app.addPane("plugin-portalslist", "Itomai list", "ic_action_paste");
+    app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
     addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
   } else {
     IITC.toolbox.addButton({
-      label: 'Itomai list',
-      title: 'Display a list of itomai portals in the current view [t]',
+      label: 'Portals list',
+      title: 'Display a list of portals in the current view [t]',
       action: window.plugin.portalslist.displayPL,
       accesskey: 't',
     });

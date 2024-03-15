@@ -16,7 +16,7 @@ var changelog = [
 ];
 
 // use own namespace for plugin
-window.plugin.portalslist = function() {};
+window.plugin.itomailist = function() {};
 
 
 function abbreviate(label) {
@@ -27,7 +27,7 @@ function abbreviate(label) {
 }
 
 function zeroCounts() {
-  return window.plugin.portalslist.FILTERS.reduce((prev, curr) => {
+  return window.plugin.itomailist.FILTERS.reduce((prev, curr) => {
     prev[curr] = 0;
     return prev;
   }, {});
@@ -51,14 +51,14 @@ function zeroCounts() {
  *     Which order should by default be used for this column. -1 means descending. Default: 1
  */
 
-window.plugin.portalslist.fields = [
+window.plugin.itomailist.fields = [
   {
     title: "Portal Name",
     value: function(portal) { return portal.options.data.title; },
     sortValue: function(value, portal) { return value.toLowerCase(); },
     format: function(cell, portal, value) {
       $(cell)
-        .append(plugin.portalslist.getPortalLink(portal))
+        .append(plugin.itomailist.getPortalLink(portal))
         .addClass("portalTitle");
     }
   },
@@ -76,7 +76,7 @@ window.plugin.portalslist.fields = [
     title: "Team",
     value: function(portal) { return portal.options.team; },
     format: function(cell, portal, value) {
-      $(cell).text(window.plugin.portalslist.FACTION_ABBREVS[value]);
+      $(cell).text(window.plugin.itomailist.FACTION_ABBREVS[value]);
     }
   },
   {
@@ -129,7 +129,7 @@ window.plugin.portalslist.fields = [
       var links = window.getPortalLinks(portal.options.guid);
       var fields = getPortalFieldsCount(portal.options.guid);
       return 0;
-//      return plugin.portalslist.portalApGainMaths(portal.options.data.resCount, links.in.length + links.out.length, fields);
+//      return plugin.itomailist.portalApGainMaths(portal.options.data.resCount, links.in.length + links.out.length, fields);
     },
     sortValue: function(value, portal) { return value.enemyAp; },
     format: function(cell, portal, value) {
@@ -192,13 +192,13 @@ window.plugin.portalslist.fields = [
 ];
 
 //fill the listPortals array with portals avaliable on the map (level filtered portals will not appear in the table)
-window.plugin.portalslist.getPortals = function() {
+window.plugin.itomailist.getPortals = function() {
   //filter : 0 = All, 1 = Neutral, 2 = Res, 3 = Enl, -x = all but x
   var retval=false;
 
   var displayBounds = map.getBounds();
 
-  window.plugin.portalslist.listPortals = [];
+  window.plugin.itomailist.listPortals = [];
   $.each(window.portals, function(i, portal) {
     // eliminate offscreen portals (selected, and in padding)
     if(!displayBounds.contains(portal.getLatLng())) return true;
@@ -209,12 +209,12 @@ window.plugin.portalslist.getPortals = function() {
 
     retval=true;
 
-    var counts = window.plugin.portalslist.counts;
-//    counts[window.plugin.portalslist.FACTION_FILTERS[portal.options.team]]++;
+    var counts = window.plugin.itomailist.counts;
+//    counts[window.plugin.itomailist.FACTION_FILTERS[portal.options.team]]++;
 
-//    if (portal.options.data.history.visited) counts[window.plugin.portalslist.HISTORY_FILTERS[0]]++;
-//    if (portal.options.data.history.captured) counts[window.plugin.portalslist.HISTORY_FILTERS[1]]++;
-//    if (portal.options.data.history.scoutControlled) counts[window.plugin.portalslist.HISTORY_FILTERS[2]]++;
+//    if (portal.options.data.history.visited) counts[window.plugin.itomailist.HISTORY_FILTERS[0]]++;
+//    if (portal.options.data.history.captured) counts[window.plugin.itomailist.HISTORY_FILTERS[1]]++;
+//    if (portal.options.data.history.scoutControlled) counts[window.plugin.itomailist.HISTORY_FILTERS[2]]++;
 
     // cache values and DOM nodes
     var obj = { portal: portal, values: [], sortValues: [] };
@@ -226,7 +226,7 @@ window.plugin.portalslist.getPortals = function() {
     var cell = row.insertCell(-1);
     cell.className = 'alignR';
 
-    window.plugin.portalslist.fields.forEach(function(field, i) {
+    window.plugin.itomailist.fields.forEach(function(field, i) {
       cell = row.insertCell(-1);
 
       var value = field.value(portal);
@@ -241,29 +241,29 @@ window.plugin.portalslist.getPortals = function() {
       }
     });
 
-    window.plugin.portalslist.listPortals.push(obj);
+    window.plugin.itomailist.listPortals.push(obj);
   });
 
   return retval;
 }
 
-window.plugin.portalslist.displayPL = function() {
+window.plugin.itomailist.displayPL = function() {
   var list;
   // plugins (e.g. bookmarks) can insert fields before the standard ones - so we need to search for the 'level' column
-  window.plugin.portalslist.sortBy = window.plugin.portalslist.fields.map(function(f){return f.title;}).indexOf('Level');
-  window.plugin.portalslist.sortOrder = -1;
-//  window.plugin.portalslist.counts = zeroCounts();
-  window.plugin.portalslist.filter = 0;
+  window.plugin.itomailist.sortBy = window.plugin.itomailist.fields.map(function(f){return f.title;}).indexOf('Level');
+  window.plugin.itomailist.sortOrder = -1;
+//  window.plugin.itomailist.counts = zeroCounts();
+  window.plugin.itomailist.filter = 0;
 
-  if (window.plugin.portalslist.getPortals()) {
-    list = window.plugin.portalslist.portalTable(window.plugin.portalslist.sortBy, window.plugin.portalslist.sortOrder,window.plugin.portalslist.filter, false);
+  if (window.plugin.itomailist.getPortals()) {
+    list = window.plugin.itomailist.portalTable(window.plugin.itomailist.sortBy, window.plugin.itomailist.sortOrder,window.plugin.itomailist.filter, false);
   } else {
     list = $('<table class="noPortals"><tr><td>Nothing to show!</td></tr></table>');
   };
 
   if (window.useAppPanes()) {
-    $('<div id="portalslist">').append(list).appendTo(document.body);
-    $("#portalslist").css ({
+    $('<div id="itomailist">').append(list).appendTo(document.body);
+    $("#itomailist").css ({
 	  "background": "transparent",
 //	  "background": "green",
 	  "border": "0 none",
@@ -276,23 +276,23 @@ window.plugin.portalslist.displayPL = function() {
     });
   } else {
     dialog({
-      html: $('<div id="portalslist">').append(list),
-      dialogClass: 'ui-dialog-portalslist',
-      title: 'Portal list: ' + window.plugin.portalslist.listPortals.length + ' ' + (window.plugin.portalslist.listPortals.length === 1 ? 'portal' : 'portals'),
+      html: $('<div id="itomailist">').append(list),
+      dialogClass: 'ui-dialog-itomailist',
+      title: 'Portal list: ' + window.plugin.itomailist.listPortals.length + ' ' + (window.plugin.itomailist.listPortals.length === 1 ? 'portal' : 'portals'),
       id: 'portal-list',
       width: 700
     });
   }
 }
 
-window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reversed) {
+window.plugin.itomailist.portalTable = function(sortBy, sortOrder, filter, reversed) {
   // save the sortBy/sortOrder/filter
-  window.plugin.portalslist.sortBy = sortBy;
-  window.plugin.portalslist.sortOrder = sortOrder;
-  window.plugin.portalslist.filter = filter;
+  window.plugin.itomailist.sortBy = sortBy;
+  window.plugin.itomailist.sortOrder = sortOrder;
+  window.plugin.itomailist.filter = filter;
 
-  var portals = window.plugin.portalslist.listPortals;
-  var sortField = window.plugin.portalslist.fields[sortBy];
+  var portals = window.plugin.itomailist.listPortals;
+  var sortField = window.plugin.itomailist.fields[sortBy];
 
   portals.sort(function(a, b) {
     var valueA = a.sortValues[sortBy];
@@ -335,9 +335,9 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
   filters.className = 'filters';
   container.append(filters);
 
-  var length = window.plugin.portalslist.listPortals.length;
+  var length = window.plugin.itomailist.listPortals.length;
 
-  window.plugin.portalslist.FILTERS.forEach((label, i) => {
+  window.plugin.itomailist.FILTERS.forEach((label, i) => {
     var cell = filters.appendChild(document.createElement('div'));
     var filterName = 'filter' + abbreviate(label);
     cell.className = 'name ' + filterName;
@@ -345,9 +345,9 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
     cell.title = 'Show only '+label+' portals';
     $(cell).click(function() {
       if (this.classList.contains('active')) {
-        $('#portalslist').empty().append(window.plugin.portalslist.portalTable(sortBy, sortOrder, 0, false));
+        $('#itomailist').empty().append(window.plugin.itomailist.portalTable(sortBy, sortOrder, 0, false));
       } else {
-        $('#portalslist').empty().append(window.plugin.portalslist.portalTable(sortBy, sortOrder, i, false));
+        $('#itomailist').empty().append(window.plugin.itomailist.portalTable(sortBy, sortOrder, i, false));
       }
     });
 
@@ -364,9 +364,9 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
       cell.title = 'Hide '+label+' portals ';
       $(cell).click(function() {
         if (this.classList.contains('active')) {
-          $('#portalslist').empty().append(window.plugin.portalslist.portalTable(sortBy, sortOrder, 0, false));
+          $('#itomailist').empty().append(window.plugin.itomailist.portalTable(sortBy, sortOrder, 0, false));
         } else {
-          $('#portalslist').empty().append(window.plugin.portalslist.portalTable(sortBy, sortOrder, i, true));
+          $('#itomailist').empty().append(window.plugin.itomailist.portalTable(sortBy, sortOrder, i, true));
         }
       });
 
@@ -374,8 +374,8 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
         cell.classList.add('active');
       }
 
-      var name = window.plugin.portalslist.FILTERS[i];
-//      var count = window.plugin.portalslist.counts[name];
+      var name = window.plugin.itomailist.FILTERS[i];
+//      var count = window.plugin.itomailist.counts[name];
 //      cell.textContent = count + ' (' + Math.round(count/length*100) + '%)';
     }
   });
@@ -394,12 +394,12 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
   var cell = row.appendChild(document.createElement('th'));
   cell.textContent = '#';
 
-  window.plugin.portalslist.fields.forEach(function(field, i) {
+  window.plugin.itomailist.fields.forEach(function(field, i) {
     cell = row.appendChild(document.createElement('th'));
     cell.textContent = field.title;
     if(field.sort !== null) {
       cell.classList.add("sortable");
-      if(i === window.plugin.portalslist.sortBy) {
+      if(i === window.plugin.itomailist.sortBy) {
         cell.classList.add("sorted");
       }
 
@@ -411,7 +411,7 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
           order = field.defaultOrder < 0 ? -1 : 1;
         }
 
-        $('#portalslist').empty().append(window.plugin.portalslist.portalTable(i, order, filter, reversed));
+        $('#itomailist').empty().append(window.plugin.itomailist.portalTable(i, order, filter, reversed));
       });
     }
   });
@@ -426,9 +426,9 @@ window.plugin.portalslist.portalTable = function(sortBy, sortOrder, filter, reve
   });
 
   container.append(`<div class="disclaimer">Click on portals table headers to sort by that column.
-Click on <b>${window.plugin.portalslist.ALL_FACTION_FILTERS.join(', ')}</b> to only show portals owned by that faction
+Click on <b>${window.plugin.itomailist.ALL_FACTION_FILTERS.join(', ')}</b> to only show portals owned by that faction
  or on the number behind the factions to show all but those portals.
-Click on <b>${window.plugin.portalslist.HISTORY_FILTERS.join(', ')}</b> to only show portals the user has a history for or on the number to hide those.
+Click on <b>${window.plugin.itomailist.HISTORY_FILTERS.join(', ')}</b> to only show portals the user has a history for or on the number to hide those.
 </div>`);
 
   return container;
@@ -437,7 +437,7 @@ Click on <b>${window.plugin.portalslist.HISTORY_FILTERS.join(', ')}</b> to only 
 // portal link - single click: select portal
 //               double click: zoom to and select portal
 // code from getPortalLink function by xelio from iitc: AP List - https://raw.github.com/breunigs/ingress-intel-total-conversion/gh-pages/plugins/ap-list.user.js
-window.plugin.portalslist.getPortalLink = function(portal) {
+window.plugin.itomailist.getPortalLink = function(portal) {
   var coord = portal.getLatLng();
   var perma = window.makePermalink(coord);
 
@@ -458,11 +458,11 @@ window.plugin.portalslist.getPortalLink = function(portal) {
   return link;
 }
 
-window.plugin.portalslist.onPaneChanged = function(pane) {
-  if(pane === "plugin-portalslist")
-    window.plugin.portalslist.displayPL();
+window.plugin.itomailist.onPaneChanged = function(pane) {
+  if(pane === "plugin-itomailist")
+    window.plugin.itomailist.displayPL();
   else
-    $("#portalslist").remove()
+    $("#itomailist").remove()
 };
 
 // ============================================================
@@ -473,37 +473,36 @@ function wrapper(plugin_info) {
   if(typeof window.plugin !== 'function') window.plugin = function() {};
 
   // Name of the IITC build for first-party plugins
-  plugin_info.buildName = 'hello';
+  plugin_info.buildName = 'Itomai list';
 
   // Datetime-derived version of the plugin
-  plugin_info.dateTimeVersion = '20150829103500';
+  plugin_info.dateTimeVersion = '20240315144500';
 
   // ID/name of the plugin
-  plugin_info.pluginId = 'hello';
+  plugin_info.pluginId = 'Itomai list';
 
   // The entry point for this plugin.
   function setup() {
-    alert('Hello, IITC!');
-  window.plugin.portalslist.FACTION_FILTERS = window.TEAM_NAMES;
-//  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
-  window.plugin.portalslist.ALL_FACTION_FILTERS = ['All', ...window.plugin.portalslist.FACTION_FILTERS];
-  window.plugin.portalslist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
-  window.plugin.portalslist.FILTERS = [...window.plugin.portalslist.ALL_FACTION_FILTERS, ...window.plugin.portalslist.HISTORY_FILTERS];
+  window.plugin.itomailist.FACTION_FILTERS = window.TEAM_NAMES;
+//  window.plugin.itomailist.FACTION_ABBREVS = window.plugin.itomailist.FACTION_FILTERS.map(abbreviate);
+  window.plugin.itomailist.ALL_FACTION_FILTERS = ['All', ...window.plugin.itomailist.FACTION_FILTERS];
+  window.plugin.itomailist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
+  window.plugin.itomailist.FILTERS = [...window.plugin.itomailist.ALL_FACTION_FILTERS, ...window.plugin.itomailist.HISTORY_FILTERS];
 
-  window.plugin.portalslist.listPortals = [];
-  window.plugin.portalslist.sortBy = 1; // second column: level
-  window.plugin.portalslist.sortOrder = -1;
-//  window.plugin.portalslist.counts = zeroCounts();
-  window.plugin.portalslist.filter = 0;
+  window.plugin.itomailist.listPortals = [];
+  window.plugin.itomailist.sortBy = 1; // second column: level
+  window.plugin.itomailist.sortOrder = -1;
+//  window.plugin.itomailist.counts = zeroCounts();
+  window.plugin.itomailist.filter = 0;
 
   if (window.useAppPanes()) {
-    app.addPane("plugin-portalslist", "Itomai list", "ic_action_paste");
-    addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
+    app.addPane("plugin-itomailist", "Itomai list", "ic_action_paste");
+    addHook("paneChanged", window.plugin.itomailist.onPaneChanged);
   } else {
     IITC.toolbox.addButton({
       label: 'Itomai list',
       title: 'Display a list of portals in the current view [t]',
-      action: window.plugin.portalslist.displayPL,
+      action: window.plugin.itomailist.displayPL,
       accesskey: 't',
     });
   }

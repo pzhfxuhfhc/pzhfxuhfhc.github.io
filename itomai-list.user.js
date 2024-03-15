@@ -21,7 +21,7 @@ window.plugin.itomailist.displayPL = function() {
       console.log ("i: " + i);
       console.log ("team: " + portal.options.team);
       console.log ("level: " + portal.options.data.level);
-      console.log ("guid: " + portal.options.data.guid);
+      console.log ("guid: " + portal.options.guid);
 
       var coord = portal.getLatLng();
       var perma = window.makePermalink(coord);

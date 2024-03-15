@@ -11,58 +11,58 @@
 window.plugin.itomailist = function() {};
 
 window.plugin.itomailist.displayPL = function() {
-  var list = "";
-  $.each(window.portals, function(i, portal) {
-      var displayBounds = map.getBounds();
-      if(!displayBounds.contains(portal.getLatLng())) return true;
-      if (!('title' in portal.options.data)) {
-	  return true; // filter out placeholder portals
-      }
-
-      console.log ("i: " + i);
-      console.log ("team: " + portal.options.team);
-      console.log ("level: " + portal.options.data.level);
-      console.log ("guid: " + portal.options.guid);
-
-      var details = portalDetail.get(portal.options.guid);
-      console.log ("details: " + JSON.stringify(details,null,2));
-
-      var coord = portal.getLatLng();
-      var perma = window.makePermalink(coord);
-
-      var link = document.createElement("a");
-      link.textContent = portal.options.data.title;
-      link.href = perma;
-      link.addEventListener("click", function(ev) {
-	  renderPortalDetails(portal.options.guid);
-	  ev.preventDefault();
-	  return false;
-      }, false);
-      list += link + "<br/>";
-  });
-
-  if (window.useAppPanes()) {
-    $('<div id="itomailist">').append(list).appendTo(document.body);
-    $("#itomailist").css ({
-	  "background": "transparent",
-//	  "background": "green",
-	  "border": "0 none",
-	  "width": "100%",
-	  "height": "100%",
-	  "left": "0",
-	  "top": "0",
-	  "position": "absolute",
-	  "overflow": "auto",
+    var list = $('<div>');
+    $.each(window.portals, function(i, portal) {
+	var displayBounds = map.getBounds();
+	if(!displayBounds.contains(portal.getLatLng())) return true;
+	if (!('title' in portal.options.data)) {
+	    return true; // filter out placeholder portals
+	}
+	
+	console.log ("i: " + i);
+	console.log ("team: " + portal.options.team);
+	console.log ("level: " + portal.options.data.level);
+	console.log ("guid: " + portal.options.guid);
+	
+	var details = portalDetail.get(portal.options.guid);
+	console.log ("details: " + JSON.stringify(details,null,2));
+	
+	var coord = portal.getLatLng();
+	var perma = window.makePermalink(coord);
+	
+	var link = document.createElement("a");
+	link.textContent = portal.options.data.title;
+	link.href = perma;
+	link.addEventListener("click", function(ev) {
+	    renderPortalDetails(portal.options.guid);
+	    ev.preventDefault();
+	    return false;
+	}, false);
+	list.append (link).append ($('<br>'));
     });
-  } else {
-    dialog({
-      html: $('<div id="itomailist">').append(list),
-      dialogClass: 'ui-dialog-itomailist',
-      title: 'Itomai list:',
-      id: 'portal-list',
-      width: 700
-    });
-  }
+    
+    if (window.useAppPanes()) {
+	$('<div id="itomailist">').append(list).appendTo(document.body);
+	$("#itomailist").css ({
+	    "background": "transparent",
+	    //	  "background": "green",
+	    "border": "0 none",
+	    "width": "100%",
+	    "height": "100%",
+	    "left": "0",
+	    "top": "0",
+	    "position": "absolute",
+	    "overflow": "auto",
+	});
+    } else {
+	dialog({
+	    html: $('<div id="itomailist">').append(list),
+	    dialogClass: 'ui-dialog-itomailist',
+	    title: 'Itomai list:',
+	    id: 'portal-list',
+	    width: 700
+	});
+    }
 }
 
 window.plugin.itomailist.onPaneChanged = function(pane) {

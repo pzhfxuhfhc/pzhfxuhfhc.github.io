@@ -227,6 +227,7 @@ window.plugin.itomailist.displayPL = function() {
 
 // **********************
   $.each(window.portals, function(i, portal) {
+      var displayBounds = map.getBounds();
       if(!displayBounds.contains(portal.getLatLng())) return true;
       if (!('title' in portal.options.data)) {
 	  return true; // filter out placeholder portals

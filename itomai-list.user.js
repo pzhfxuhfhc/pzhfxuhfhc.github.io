@@ -240,7 +240,7 @@ window.plugin.itomailist.displayPL = function() {
       link.href = perma;
       link.addEventListener("click", function(ev) {
 	  renderPortalDetails(portal.options.guid);
-	  $("#itomailist").remove()
+//	  $("#itomailist").remove()
 	  ev.preventDefault();
 	  return false;
       }, false);

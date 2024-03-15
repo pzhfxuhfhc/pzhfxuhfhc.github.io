@@ -272,8 +272,8 @@ window.plugin.portalslist.displayPL = function() {
 //	  "background": "transparent",
 	  "background": "green",
 	  "border": "0 none",
-	  "height": "100%",
-	  "width": "50%",
+	  "width": "100%",
+	  "height": "50%",
 	  "left": "0",
 	  "top": "0",
 	  "position": "absolute",
@@ -471,38 +471,38 @@ window.plugin.portalslist.onPaneChanged = function(pane) {
     $("#portalslist").remove()
 };
 
-var setup =  function() {
-  window.plugin.portalslist.FACTION_FILTERS = window.TEAM_NAMES;
-//  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
-  window.plugin.portalslist.ALL_FACTION_FILTERS = ['All', ...window.plugin.portalslist.FACTION_FILTERS];
-  window.plugin.portalslist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
-  window.plugin.portalslist.FILTERS = [...window.plugin.portalslist.ALL_FACTION_FILTERS, ...window.plugin.portalslist.HISTORY_FILTERS];
-
-  window.plugin.portalslist.listPortals = [];
-  window.plugin.portalslist.sortBy = 1; // second column: level
-  window.plugin.portalslist.sortOrder = -1;
-//  window.plugin.portalslist.counts = zeroCounts();
-  window.plugin.portalslist.filter = 0;
-
-  if (window.useAppPanes()) {
-    app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
-    addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
-  } else {
-    IITC.toolbox.addButton({
-      label: 'Portals list',
-      title: 'Display a list of portals in the current view [t]',
-      action: window.plugin.portalslist.displayPL,
-      accesskey: 't',
-    });
-  }
-
-    console.log ("setup called#1");
-//  $("<style>")
-//    .prop("type", "text/css")
-//    .html('@include_string:portals-list.css@')
-//    .appendTo("head");
-    console.log ("setup called#2");
-};
+//var setup =  function() {
+//  window.plugin.portalslist.FACTION_FILTERS = window.TEAM_NAMES;
+////  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
+//  window.plugin.portalslist.ALL_FACTION_FILTERS = ['All', ...window.plugin.portalslist.FACTION_FILTERS];
+//  window.plugin.portalslist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
+//  window.plugin.portalslist.FILTERS = [...window.plugin.portalslist.ALL_FACTION_FILTERS, ...window.plugin.portalslist.HISTORY_FILTERS];
+//
+//  window.plugin.portalslist.listPortals = [];
+//  window.plugin.portalslist.sortBy = 1; // second column: level
+//  window.plugin.portalslist.sortOrder = -1;
+////  window.plugin.portalslist.counts = zeroCounts();
+//  window.plugin.portalslist.filter = 0;
+//
+//  if (window.useAppPanes()) {
+//    app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
+//    addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
+//  } else {
+//    IITC.toolbox.addButton({
+//      label: 'Portals list',
+//      title: 'Display a list of portals in the current view [t]',
+//      action: window.plugin.portalslist.displayPL,
+//      accesskey: 't',
+//    });
+//  }
+//
+//    console.log ("setup called#1");
+////  $("<style>")
+////    .prop("type", "text/css")
+////    .html('@include_string:portals-list.css@')
+////    .appendTo("head");
+//    console.log ("setup called#2");
+//};
 
 // given counts of resonators, links and fields, calculate the available AP
 // doesn't take account AP for resonator upgrades or AP for adding mods

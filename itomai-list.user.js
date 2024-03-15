@@ -325,7 +325,7 @@ window.plugin.itomailist.portalTable = function(sortBy, sortOrder, filter, rever
 
   window.plugin.itomailist.FILTERS.forEach((label, i) => {
     var cell = filters.appendChild(document.createElement('div'));
-    var filterName = 'filter' + abbreviate(label);
+    var filterName = 'filter';
     cell.className = 'name ' + filterName;
     cell.textContent = label+':';
     cell.title = 'Show only '+label+' portals';

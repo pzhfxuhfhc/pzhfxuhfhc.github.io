@@ -18,8 +18,8 @@ window.plugin.itomailist.displayPL = function() {
 	  return true; // filter out placeholder portals
       }
 
-      console.log (portal.options.team);
-      console.log (portal.options.data.level);
+      console.log ("team: " + portal.options.team);
+      console.log ("level: " + portal.options.data.level);
 
       var coord = portal.getLatLng();
       var perma = window.makePermalink(coord);

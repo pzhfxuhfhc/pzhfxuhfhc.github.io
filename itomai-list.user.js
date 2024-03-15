@@ -8,12 +8,7 @@
 // @grant          none
 // ==/UserScript==
 
-var changelog = [
-  {
-    version: '0.0.1',
-    changes: ['initial version'],
-  },
-];
+window.plugin.itomailist = function() {};
 
 window.plugin.itomailist.displayPL = function() {
 // **********************

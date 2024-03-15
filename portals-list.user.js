@@ -265,6 +265,16 @@ window.plugin.portalslist.displayPL = function() {
 
   if (window.useAppPanes()) {
     $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
+      $("portalslist").css ({
+	  "background": "transparent",
+	  "border": "0 none",
+	  "height": "100%",
+	  "width": "100%",
+	  "left": "0",
+	  "top": "0",
+	  "position": "absolute",
+	  "overflow": "auto",
+      });
   } else {
     dialog({
       html: $('<div id="portalslist">').append(list),
@@ -533,7 +543,6 @@ function wrapper(plugin_info) {
 
   // The entry point for this plugin.
   function setup() {
-    alert('Hello, IITC!');
   window.plugin.portalslist.FACTION_FILTERS = window.TEAM_NAMES;
 //  window.plugin.portalslist.FACTION_ABBREVS = window.plugin.portalslist.FACTION_FILTERS.map(abbreviate);
   window.plugin.portalslist.ALL_FACTION_FILTERS = ['All', ...window.plugin.portalslist.FACTION_FILTERS];

@@ -18,6 +18,7 @@ window.plugin.itomailist.displayPL = function() {
 	  return true; // filter out placeholder portals
       }
 
+      console.log ("i: " + i);
       console.log ("team: " + portal.options.team);
       console.log ("level: " + portal.options.data.level);
       console.log ("guid: " + portal.options.data.guid);

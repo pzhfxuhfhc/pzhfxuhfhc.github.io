@@ -562,7 +562,7 @@ function wrapper(plugin_info) {
   if (window.useAppPanes()) {
     app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
     addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
-    $('<div id="portalslist">').html ("あいうえお");
+    $("portalslist").html ("あいうえお");
   } else {
     IITC.toolbox.addButton({
       label: 'Portals list',

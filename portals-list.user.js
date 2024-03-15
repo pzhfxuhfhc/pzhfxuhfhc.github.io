@@ -268,7 +268,7 @@ window.plugin.portalslist.displayPL = function() {
   if (window.useAppPanes()) {
 //    $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
     $('<div id="portalslist">').append(list).appendTo(document.body);
-      $("portalslist").css ({
+    $("#portalslist").css ({
 //	  "background": "transparent",
 	  "background": "green",
 	  "border": "0 none",
@@ -278,7 +278,7 @@ window.plugin.portalslist.displayPL = function() {
 	  "top": "0",
 	  "position": "absolute",
 	  "overflow": "auto",
-      });
+    });
   } else {
     dialog({
       html: $('<div id="portalslist">').append(list),

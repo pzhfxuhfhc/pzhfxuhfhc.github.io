@@ -18,39 +18,6 @@ var changelog = [
 // use own namespace for plugin
 window.plugin.itomailist = function() {};
 
-
-function abbreviate(label) {
-  return label
-    .replaceAll(/[^a-z]/gi, '')
-    .substring(0, 3)
-    .capitalize();
-}
-
-function zeroCounts() {
-  return window.plugin.itomailist.FILTERS.reduce((prev, curr) => {
-    prev[curr] = 0;
-    return prev;
-  }, {});
-}
-
-/*
- * plugins may add fields by appending their specifiation to the following list. The following members are supported:
- * title: String
- *     Name of the column. Required.
- * value: function(portal)
- *     The raw value of this field. Can by anything. Required, but can be dummy implementation if sortValue and format
- *     are implemented.
- * sortValue: function(value, portal)
- *     The value to sort by. Optional, uses value if omitted. The raw value is passed as first argument.
- * sort: function(valueA, valueB, portalA, portalB)
- *     Custom sorting function. See Array.sort() for details on return value. Both the raw values and the portal objects
- *     are passed as arguments. Optional. Set to null to disable sorting
- * format: function(cell, portal, value)
- *     Used to fill and format the cell, which is given as a DOM node. If omitted, the raw value is put in the cell.
- * defaultOrder: -1|1
- *     Which order should by default be used for this column. -1 means descending. Default: 1
- */
-
 window.plugin.itomailist.fields = [
   {
     title: "Portal Name",
@@ -191,7 +158,6 @@ window.plugin.itomailist.fields = [
   }
 ];
 
-//fill the listPortals array with portals avaliable on the map (level filtered portals will not appear in the table)
 window.plugin.itomailist.getPortals = function() {
   //filter : 0 = All, 1 = Neutral, 2 = Res, 3 = Enl, -x = all but x
   var retval=false;
@@ -200,9 +166,7 @@ window.plugin.itomailist.getPortals = function() {
 
   window.plugin.itomailist.listPortals = [];
   $.each(window.portals, function(i, portal) {
-    // eliminate offscreen portals (selected, and in padding)
     if(!displayBounds.contains(portal.getLatLng())) return true;
-
     if (!('title' in portal.options.data)) {
       return true; // filter out placeholder portals
     }
@@ -260,6 +224,28 @@ window.plugin.itomailist.displayPL = function() {
   } else {
     list = $('<table class="noPortals"><tr><td>Nothing to show!</td></tr></table>');
   };
+
+// **********************
+  $.each(window.portals, function(i, portal) {
+      if(!displayBounds.contains(portal.getLatLng())) return true;
+      if (!('title' in portal.options.data)) {
+	  return true; // filter out placeholder portals
+      }
+      var coord = portal.getLatLng();
+      var perma = window.makePermalink(coord);
+
+      var link = document.createElement("a");
+      link.textContent = portal.options.data.title;
+      link.href = perma;
+      link.addEventListener("click", function(ev) {
+	  renderPortalDetails(portal.options.guid);
+	  ev.preventDefault();
+	  return false;
+      }, false);
+      list = link;
+      return false; // break する
+  }
+// **********************
 
   if (window.useAppPanes()) {
     $('<div id="itomailist">').append(list).appendTo(document.body);

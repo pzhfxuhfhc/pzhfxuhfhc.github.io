@@ -11,6 +11,7 @@
 window.plugin.itomailist = function() {};
 
 window.plugin.itomailist.displayPL = function() {
+  var list;
   $.each(window.portals, function(i, portal) {
       var displayBounds = map.getBounds();
       if(!displayBounds.contains(portal.getLatLng())) return true;
@@ -37,7 +38,7 @@ window.plugin.itomailist.displayPL = function() {
 	  ev.preventDefault();
 	  return false;
       }, false);
-      list = link;
+      list.append (link);
   });
 
   if (window.useAppPanes()) {

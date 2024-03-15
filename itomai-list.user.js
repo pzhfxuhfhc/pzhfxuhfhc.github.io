@@ -240,6 +240,7 @@ window.plugin.itomailist.displayPL = function() {
       link.href = perma;
       link.addEventListener("click", function(ev) {
 	  renderPortalDetails(portal.options.guid);
+	  $("#itomailist").remove()
 	  ev.preventDefault();
 	  return false;
       }, false);
@@ -265,7 +266,7 @@ window.plugin.itomailist.displayPL = function() {
     dialog({
       html: $('<div id="itomailist">').append(list),
       dialogClass: 'ui-dialog-itomailist',
-      title: 'Portal list: ' + window.plugin.itomailist.listPortals.length + ' ' + (window.plugin.itomailist.listPortals.length === 1 ? 'portal' : 'portals'),
+      title: 'Itomai list:',
       id: 'portal-list',
       width: 700
     });

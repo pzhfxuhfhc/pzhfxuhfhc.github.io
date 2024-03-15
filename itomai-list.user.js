@@ -244,7 +244,7 @@ window.plugin.itomailist.displayPL = function() {
       }, false);
       list = link;
       return false; // break する
-  }
+  });
 // **********************
 
   if (window.useAppPanes()) {

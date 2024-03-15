@@ -11,13 +11,16 @@
 window.plugin.itomailist = function() {};
 
 window.plugin.itomailist.displayPL = function() {
-// **********************
   $.each(window.portals, function(i, portal) {
       var displayBounds = map.getBounds();
       if(!displayBounds.contains(portal.getLatLng())) return true;
       if (!('title' in portal.options.data)) {
 	  return true; // filter out placeholder portals
       }
+
+      console.log (portal.options.team);
+      console.log (portal.options.data.level);
+
       var coord = portal.getLatLng();
       var perma = window.makePermalink(coord);
 
@@ -30,9 +33,7 @@ window.plugin.itomailist.displayPL = function() {
 	  return false;
       }, false);
       list = link;
-      return false; // break する
   });
-// **********************
 
   if (window.useAppPanes()) {
     $('<div id="itomailist">').append(list).appendTo(document.body);

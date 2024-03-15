@@ -264,7 +264,8 @@ window.plugin.portalslist.displayPL = function() {
   };
 
   if (window.useAppPanes()) {
-    $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
+//    $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
+    $('<div id="portalslist">').append(list).appendTo(document.body);
       $("portalslist").css ({
 	  "background": "transparent",
 	  "border": "0 none",

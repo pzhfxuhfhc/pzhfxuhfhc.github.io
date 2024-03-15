@@ -262,7 +262,18 @@ window.plugin.portalslist.displayPL = function() {
   };
 
   if (window.useAppPanes()) {
-    $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
+    $('<div id="portalslist">').append(list).appendTo(document.body);
+    $("#portalslist").css ({
+	  "background": "transparent",
+//	  "background": "green",
+	  "border": "0 none",
+	  "width": "100%",
+	  "height": "100%",
+	  "left": "0",
+	  "top": "0",
+	  "position": "absolute",
+	  "overflow": "auto",
+    });
   } else {
     dialog({
       html: $('<div id="portalslist">').append(list),

@@ -263,8 +263,6 @@ window.plugin.portalslist.displayPL = function() {
     list = $('<table class="noPortals"><tr><td>Nothing to show!</td></tr></table>');
   };
 
-  list = $('<table class="noPortals"><tr><td>Nothing to show!</td></tr></table>');
-
   if (window.useAppPanes()) {
     $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
   } else {

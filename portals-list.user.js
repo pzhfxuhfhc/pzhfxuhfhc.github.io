@@ -269,10 +269,11 @@ window.plugin.portalslist.displayPL = function() {
 //    $('<div id="portalslist" class="mobile">').append(list).appendTo(document.body);
     $('<div id="portalslist">').append(list).appendTo(document.body);
       $("portalslist").css ({
-	  "background": "transparent",
+//	  "background": "transparent",
+	  "background": "green",
 	  "border": "0 none",
 	  "height": "100%",
-	  "width": "100%",
+	  "width": "50%",
 	  "left": "0",
 	  "top": "0",
 	  "position": "absolute",
@@ -561,6 +562,7 @@ function wrapper(plugin_info) {
   if (window.useAppPanes()) {
     app.addPane("plugin-portalslist", "Portals list", "ic_action_paste");
     addHook("paneChanged", window.plugin.portalslist.onPaneChanged);
+    $('<div id="portalslist">').html ("あいうえお");
   } else {
     IITC.toolbox.addButton({
       label: 'Portals list',

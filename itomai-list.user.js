@@ -10,7 +10,7 @@
 
 window.plugin.itomailist = function() {};
 
-window.plugin.itomailist.displayPL = async function() {
+window.plugin.itomailist.displayPL = function() {
     var list = $('<div>');
     $.each(window.portals, function(i, portal) {
 	var displayBounds = map.getBounds();
@@ -25,8 +25,11 @@ window.plugin.itomailist.displayPL = async function() {
 	console.log ("guid: " + portal.options.guid);
 	
 //	portalDetail.request(portal.options.guid);
-	var details = await portalDetail.get(portal.options.guid);
-	console.log ("details: " + JSON.stringify(details,null,2));
+//	var details = portalDetail.get(portal.options.guid);
+	portalDetail.request(portal.options.guid).then (
+	    data => console.log (data);
+	);
+//	console.log ("details: " + JSON.stringify(details,null,2));
 	
 	// ************** portal を list に追加
 	var coord = portal.getLatLng();

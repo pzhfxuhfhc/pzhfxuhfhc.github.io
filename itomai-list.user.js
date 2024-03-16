@@ -24,7 +24,7 @@ window.plugin.itomailist.displayPL = function() {
 	console.log ("level: " + portal.options.data.level);
 	console.log ("guid: " + portal.options.guid);
 	
-	portalDetail.request(guid);
+	portalDetail.request(portal.options.guid);
 	var details = portalDetail.get(portal.options.guid);
 	console.log ("details: " + JSON.stringify(details,null,2));
 	

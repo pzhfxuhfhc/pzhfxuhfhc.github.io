@@ -24,12 +24,13 @@ window.plugin.itomailist.displayPL = function() {
 	console.log ("level: " + portal.options.data.level);
 	console.log ("guid: " + portal.options.guid);
 	
+	portalDetail.request(guid);
 	var details = portalDetail.get(portal.options.guid);
 	console.log ("details: " + JSON.stringify(details,null,2));
 	
+	// ************** portal を list に追加
 	var coord = portal.getLatLng();
 	var perma = window.makePermalink(coord);
-	
 	var link = document.createElement("a");
 	link.textContent = portal.options.data.title;
 	link.href = perma;

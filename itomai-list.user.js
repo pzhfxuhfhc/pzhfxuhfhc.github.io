@@ -67,7 +67,7 @@ window.plugin.itomailist.displayPL = function() {
 	console.log ("guid: " + portal.options.guid);
 	
 	portalDetail.request(portal.options.guid).then (details => {
-	    if (details.mods.includs ("Ito En Transmuter (+)")) {
+	    if (details.mods.includes ("Ito En Transmuter (+)")) {
 		portal_list.push (portal);
 	    }
 	});

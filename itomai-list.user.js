@@ -8,6 +8,15 @@
 // @grant          none
 // ==/UserScript==
 
+// Disclaimer
+// メニューの「Itomai list」を押すと，ENL P8 Ito- ポータルの一覧が出ます．
+// 存在しない時は空リストが表示されます（「見つかりませんでした」とかは出ません）
+// async/awaitでクエリを逐次処理してるので，サーバ負荷は低いはず．
+// その代わり，ENL P8のポータル数が多いとクエリ処理に時間がかかります
+// (数十秒〜数分）
+// サーバが502 Bad Gatewayを返した時のエラー処理はサボってます
+// (リトライとかはしてません)
+
 window.plugin.itomailist = function() {};
 
 window.plugin.itomailist.showPL = function (portal_list) {
@@ -55,6 +64,7 @@ window.plugin.itomailist.collectPL = async function() {
     var list = $('<div>');
     var portal_list = [];
 
+    var count = 0;
     for (var guid in window.portals) {
 	var portal = window.portals [guid];
 	var displayBounds = map.getBounds();
@@ -70,6 +80,7 @@ window.plugin.itomailist.collectPL = async function() {
 	if (portal.options.team != 2) continue;
 	if (portal.options.data.level != 8) continue;
 	
+	count++;
 	await portalDetail.request(portal.options.guid).then (details => {
 	    var target_mod = "Ito En Transmuter (-)";
 	    // var target_mod = "Portal Shield";
@@ -85,6 +96,7 @@ window.plugin.itomailist.collectPL = async function() {
     }
 
     console.log ("portal_list: " + portal_list);
+    console.log ("count: " + count);
     window.plugin.itomailist.showPL (portal_list);
 };
 

@@ -51,7 +51,7 @@ window.plugin.itomailist.showPL = function (portal_list) {
     }
 };
 
-window.plugin.itomailist.displayPL = async function() {
+window.plugin.itomailist.collectPL = async function() {
     var list = $('<div>');
     var portal_list = [];
 
@@ -75,9 +75,6 @@ window.plugin.itomailist.displayPL = async function() {
 	    // var target_mod = "Portal Shield";
 
 	    for (var i = 0; i < 4; i++) {
-		if (details.mods [i]) {
-		    console.log (details.mods [i].name);
-		}
 		if (details.mods [i] && details.mods [i].name == target_mod) {
 		    console.log ("pushed!! " + details.mods [i].name);
 		    portal_list.push (portal);
@@ -93,7 +90,7 @@ window.plugin.itomailist.displayPL = async function() {
 
 window.plugin.itomailist.onPaneChanged = function(pane) {
   if(pane === "plugin-itomailist")
-    window.plugin.itomailist.displayPL();
+    window.plugin.itomailist.collectPL();
   else
     $("#itomailist").remove()
 };
@@ -135,7 +132,7 @@ function wrapper(plugin_info) {
     IITC.toolbox.addButton({
       label: 'Itomai list',
       title: 'Display a list of portals in the current view [t]',
-      action: window.plugin.itomailist.displayPL,
+      action: window.plugin.itomailist.collectPL,
       accesskey: 't',
     });
   }

@@ -51,7 +51,7 @@ window.plugin.itomailist.showPL = function (portal_list) {
     }
 };
 
-window.plugin.itomailist.displayPL = function() {
+window.plugin.itomailist.displayPL = async function() {
     var list = $('<div>');
     var portal_list = [];
 
@@ -68,7 +68,7 @@ window.plugin.itomailist.displayPL = function() {
 	console.log ("level: " + portal.options.data.level);
 	console.log ("guid: " + portal.options.guid);
 	
-	portalDetail.request(portal.options.guid).then (details => {
+	await portalDetail.request(portal.options.guid).then (details => {
 	    console.log ("mod: "
 			 + details.mods [0] + ", "
 			 + details.mods [1] + ", "

@@ -69,8 +69,8 @@ window.plugin.itomailist.displayPL = async function() {
 	console.log ("guid: " + portal.options.guid);
 	
 	await portalDetail.request(portal.options.guid).then (details => {
-	    // var target_mod = "Ito En Transmuter (-)";
-	    var target_mod = "Portal Shield";
+	    var target_mod = "Ito En Transmuter (-)";
+	    // var target_mod = "Portal Shield";
 
 	    for (var i = 0; i < 4; i++) {
 		if (details.mods [i]) {

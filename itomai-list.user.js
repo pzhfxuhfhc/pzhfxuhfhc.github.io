@@ -77,9 +77,9 @@ window.plugin.itomailist.displayPL = function() {
 	    if (details.mods.includes ("Ito En Transmuter (+)")) {
 		portal_list.push (portal);
 	    }
-//	});
-	}
-    });
+	});
+    }
+//    });
 
     setTimeout(window.plugin.itomailist.showPL, 5000);
 };

@@ -77,6 +77,7 @@ window.plugin.itomailist.displayPL = async function() {
 		    console.log (details.mods [i].name);
 		}
 		if (details.mods [i] && details.mods [i].name == target_mod) {
+		    console.log ("pushed!! " + details.mods [i].name);
 		    portal_list.push (portal);
 		    break;
 		}

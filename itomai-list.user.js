@@ -54,9 +54,9 @@ window.plugin.itomailist.showPL = function (portal_list) {
 window.plugin.itomailist.displayPL = function() {
     var list = $('<div>');
     var portal_list = [];
-    $.each(window.portals, function(i, portal) {
-//    for (let guid in window.portals) {
-//	var portal = window.portals [guid];
+//    $.each(window.portals, function(i, portal) {
+    for (lvar guid in window.portals) {
+	var portal = window.portals [guid];
 	var displayBounds = map.getBounds();
 	if(!displayBounds.contains(portal.getLatLng())) return true;
 	if (!('title' in portal.options.data)) {
@@ -69,11 +69,16 @@ window.plugin.itomailist.displayPL = function() {
 	console.log ("guid: " + portal.options.guid);
 	
 	portalDetail.request(portal.options.guid).then (details => {
+	    console.log ("mod: "
+			 + details.mods [0] + ", "
+			 + details.mods [1] + ", "
+			 + details.mods [2] + ", "
+			 + details.mods [3]);
 	    if (details.mods.includes ("Ito En Transmuter (+)")) {
 		portal_list.push (portal);
 	    }
-	});
-//    }
+//	});
+	}
     });
 
     setTimeout(window.plugin.itomailist.showPL, 5000);

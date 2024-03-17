@@ -80,7 +80,8 @@ window.plugin.itomailist.displayPL = async function() {
 	});
     }
 
-    setTimeout(window.plugin.itomailist.showPL, 5000);
+    console.log ("portal_list: " + portal_list);
+    window.plugin.itomailist.showPL (portal_list);
 };
 
 window.plugin.itomailist.onPaneChanged = function(pane) {

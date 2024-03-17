@@ -70,11 +70,11 @@ window.plugin.itomailist.displayPL = async function() {
 	
 	await portalDetail.request(portal.options.guid).then (details => {
 	    console.log ("mod: "
-			 + details.mods [0] + ", "
-			 + details.mods [1] + ", "
-			 + details.mods [2] + ", "
-			 + details.mods [3]);
-	    if (details.mods.includes ("Ito En Transmuter (+)")) {
+			 + details.mods [0].name + ", "
+			 + details.mods [1].name + ", "
+			 + details.mods [2].name + ", "
+			 + details.mods [3].name);
+	    if (details.mods.name.includes ("Ito En Transmuter (+)")) {
 		portal_list.push (portal);
 	    }
 	});

@@ -74,7 +74,11 @@ window.plugin.itomailist.displayPL = async function() {
 			 + details.mods [1].name + ", "
 			 + details.mods [2].name + ", "
 			 + details.mods [3].name);
-	    if (details.mods.name.includes ("Ito En Transmuter (+)")) {
+	    var target_mod = "Ito En Transmuter (+)";
+	    if (details.mods [0].name == target_mod
+		|| details.mods [1].name == target_mod
+		|| details.mods [2].name == target_mod
+		|| details.mods [3].name == target_mod) {
 		portal_list.push (portal);
 	    }
 	});

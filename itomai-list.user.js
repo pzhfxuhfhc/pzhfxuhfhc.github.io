@@ -67,6 +67,8 @@ window.plugin.itomailist.displayPL = async function() {
 	console.log ("team: " + portal.options.team);
 	console.log ("level: " + portal.options.data.level);
 	console.log ("guid: " + portal.options.guid);
+	if (portal.options.team != 2) continue;
+	if (portal.options.data.level != 8) continue;
 	
 	await portalDetail.request(portal.options.guid).then (details => {
 	    var target_mod = "Ito En Transmuter (-)";

@@ -54,14 +54,15 @@ window.plugin.itomailist.showPL = function (portal_list) {
 window.plugin.itomailist.displayPL = function() {
     var list = $('<div>');
     var portal_list = [];
-    $.each(window.portals, function(i, portal) {
+//    $.each(window.portals, function(i, portal) {
+    for (let portal of window.portals) {
 	var displayBounds = map.getBounds();
 	if(!displayBounds.contains(portal.getLatLng())) return true;
 	if (!('title' in portal.options.data)) {
 	    return true; // filter out placeholder portals
 	}
 	
-	console.log ("i: " + i);
+	console.log ("------");
 	console.log ("team: " + portal.options.team);
 	console.log ("level: " + portal.options.data.level);
 	console.log ("guid: " + portal.options.guid);
@@ -71,7 +72,8 @@ window.plugin.itomailist.displayPL = function() {
 		portal_list.push (portal);
 	    }
 	});
-    });
+    }
+//    });
 
     setTimeout(window.plugin.itomailist.showPL, 5000);
 };

@@ -10,28 +10,10 @@
 
 window.plugin.itomailist = function() {};
 
-window.plugin.itomailist.displayPL = function() {
+window.plugin.itomailist.showPL = function (portal_list) {
     var list = $('<div>');
-    $.each(window.portals, function(i, portal) {
-	var displayBounds = map.getBounds();
-	if(!displayBounds.contains(portal.getLatLng())) return true;
-	if (!('title' in portal.options.data)) {
-	    return true; // filter out placeholder portals
-	}
-	
-	console.log ("i: " + i);
-	console.log ("team: " + portal.options.team);
-	console.log ("level: " + portal.options.data.level);
-	console.log ("guid: " + portal.options.guid);
-	
-//	portalDetail.request(portal.options.guid);
-//	var details = portalDetail.get(portal.options.guid);
-	portalDetail.request(portal.options.guid).then (
-	    data => console.log (data.mods[0].name)
-	);
-//	console.log ("details: " + JSON.stringify(details,null,2));
-	
-	// ************** portal を list に追加
+
+    $.each(portal_list, function(i, portal) {
 	var coord = portal.getLatLng();
 	var perma = window.makePermalink(coord);
 	var link = document.createElement("a");
@@ -44,7 +26,7 @@ window.plugin.itomailist.displayPL = function() {
 	}, false);
 	list.append (link).append ($('<br>'));
     });
-    
+
     if (window.useAppPanes()) {
 	$('<div id="itomailist">').append(list).appendTo(document.body);
 	$("#itomailist").css ({
@@ -67,7 +49,32 @@ window.plugin.itomailist.displayPL = function() {
 	    width: 700
 	});
     }
-}
+};
+
+window.plugin.itomailist.displayPL = function() {
+    var list = $('<div>');
+    var portal_list = [];
+    $.each(window.portals, function(i, portal) {
+	var displayBounds = map.getBounds();
+	if(!displayBounds.contains(portal.getLatLng())) return true;
+	if (!('title' in portal.options.data)) {
+	    return true; // filter out placeholder portals
+	}
+	
+	console.log ("i: " + i);
+	console.log ("team: " + portal.options.team);
+	console.log ("level: " + portal.options.data.level);
+	console.log ("guid: " + portal.options.guid);
+	
+	portalDetail.request(portal.options.guid).then (details => {
+	    if (details.mods.includs ("Ito En Transmuter (+)")) {
+		portal_list.push (portal);
+	    }
+	});
+    });
+
+    setTimeout(window.plugin.itomailist.showPL, 5000);
+};
 
 window.plugin.itomailist.onPaneChanged = function(pane) {
   if(pane === "plugin-itomailist")

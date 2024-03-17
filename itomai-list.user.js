@@ -69,16 +69,13 @@ window.plugin.itomailist.displayPL = async function() {
 	console.log ("guid: " + portal.options.guid);
 	
 	await portalDetail.request(portal.options.guid).then (details => {
-	    if (details.mod [0]) console.log (details.mods [0].name);
-	    if (details.mod [1]) console.log (details.mods [1].name);
-	    if (details.mod [2]) console.log (details.mods [2].name);
-	    if (details.mod [3]) console.log (details.mods [3].name);
 	    var target_mod = "Ito En Transmuter (+)";
-	    if (details.mods [0].name == target_mod
-		|| details.mods [1].name == target_mod
-		|| details.mods [2].name == target_mod
-		|| details.mods [3].name == target_mod) {
-		portal_list.push (portal);
+	    for (var i = 0; i < 4; i++) {
+		if (details.mod [i]) console.log (details.mods [i].name);
+		if (details.mods [i].name == target_mod) {
+		    portal_list.push (portal);
+		    break;
+		}
 	    }
 	});
     }

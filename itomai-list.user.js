@@ -56,7 +56,7 @@ window.plugin.itomailist.displayPL = function() {
     var portal_list = [];
     $.each(window.portals, function(i, portal) {
 //    for (let guid in window.portals) {
-	var portal = window.portals [guid];
+//	var portal = window.portals [guid];
 	var displayBounds = map.getBounds();
 	if(!displayBounds.contains(portal.getLatLng())) return true;
 	if (!('title' in portal.options.data)) {

@@ -125,11 +125,11 @@ function wrapper(plugin_info) {
   // The entry point for this plugin.
   function setup() {
       if (window.useAppPanes()) {
-	  app.addPane("plugin-modakilist", "Modaki list", "ic_action_paste");
+	  app.addPane("plugin-modakilist", "MOD空きリスト", "ic_action_paste");
 	  addHook("paneChanged", window.plugin.modakilist.onPaneChanged);
       } else {
 	  IITC.toolbox.addButton({
-	      label: 'Modaki list',
+	      label: 'MOD空きリスト',
 	      title: 'Display a list of modaki portals in the current view [t]',
 	      action: window.plugin.modakilist.collectPL,
 	      accesskey: 't',

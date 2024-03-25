@@ -126,36 +126,24 @@ function wrapper(plugin_info) {
 
   // The entry point for this plugin.
   function setup() {
-  window.plugin.itomailist.FACTION_FILTERS = window.TEAM_NAMES;
-//  window.plugin.itomailist.FACTION_ABBREVS = window.plugin.itomailist.FACTION_FILTERS.map(abbreviate);
-  window.plugin.itomailist.ALL_FACTION_FILTERS = ['All', ...window.plugin.itomailist.FACTION_FILTERS];
-  window.plugin.itomailist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
-  window.plugin.itomailist.FILTERS = [...window.plugin.itomailist.ALL_FACTION_FILTERS, ...window.plugin.itomailist.HISTORY_FILTERS];
-
-  window.plugin.itomailist.listPortals = [];
-  window.plugin.itomailist.sortBy = 1; // second column: level
-  window.plugin.itomailist.sortOrder = -1;
-//  window.plugin.itomailist.counts = zeroCounts();
-  window.plugin.itomailist.filter = 0;
-
-  if (window.useAppPanes()) {
-    app.addPane("plugin-itomailist", "Itomai list", "ic_action_paste");
-    addHook("paneChanged", window.plugin.itomailist.onPaneChanged);
-  } else {
-    IITC.toolbox.addButton({
-      label: 'Itomai list',
-      title: 'Display a list of itomai portals in the current view [t]',
-      action: window.plugin.itomailist.collectPL,
-      accesskey: 't',
-    });
-  }
-
-    console.log ("setup called#1");
-  $("<style>")
-    .prop("type", "text/css")
-    .html('@include_string:portals-list.css@')
-    .appendTo("head");
-    console.log ("setup called#2");
+      if (window.useAppPanes()) {
+	  app.addPane("plugin-itomailist", "Ito-リスト", "ic_action_paste");
+	  addHook("paneChanged", window.plugin.itomailist.onPaneChanged);
+      } else {
+	  IITC.toolbox.addButton({
+	      label: 'Ito-リスト',
+	      title: 'Display a list of itomai portals in the current view [t]',
+	      action: window.plugin.itomailist.collectPL,
+	      accesskey: 't',
+	  });
+      }
+      
+      console.log ("setup called#1");
+      $("<style>")
+	  .prop("type", "text/css")
+	  .html('@include_string:portals-list.css@')
+	  .appendTo("head");
+      console.log ("setup called#2");
   }
 
   // Add an info property for IITC's plugin system

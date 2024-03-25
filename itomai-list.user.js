@@ -127,11 +127,11 @@ function wrapper(plugin_info) {
   // The entry point for this plugin.
   function setup() {
       if (window.useAppPanes()) {
-	  app.addPane("plugin-itomailist", "Ito-リスト", "ic_action_paste");
+	  app.addPane("plugin-itomailist", "Itoマイリスト", "ic_action_paste");
 	  addHook("paneChanged", window.plugin.itomailist.onPaneChanged);
       } else {
 	  IITC.toolbox.addButton({
-	      label: 'Ito-リスト',
+	      label: 'Itoマイリスト',
 	      title: 'Display a list of itomai portals in the current view [t]',
 	      action: window.plugin.itomailist.collectPL,
 	      accesskey: 't',

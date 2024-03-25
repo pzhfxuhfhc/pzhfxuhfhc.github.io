@@ -20,7 +20,7 @@
 
 window.plugin.modakilist = function() {};
 
-window.plugin.modoakilist.showPL = function (portal_list) {
+window.plugin.modakilist.showPL = function (portal_list) {
     var list = $('<div>');
 
     $.each(portal_list, function(i, portal) {
@@ -38,8 +38,8 @@ window.plugin.modoakilist.showPL = function (portal_list) {
     });
 
     if (window.useAppPanes()) {
-	$('<div id="modoakilist">').append(list).appendTo(document.body);
-	$("#modoakilist").css ({
+	$('<div id="modakilist">').append(list).appendTo(document.body);
+	$("#modakilist").css ({
 	    "background": "transparent",
 	    //	  "background": "green",
 	    "border": "0 none",
@@ -52,8 +52,8 @@ window.plugin.modoakilist.showPL = function (portal_list) {
 	});
     } else {
 	dialog({
-	    html: $('<div id="modoakilist">').append(list),
-	    dialogClass: 'ui-dialog-modoakilist',
+	    html: $('<div id="modakilist">').append(list),
+	    dialogClass: 'ui-dialog-modakilist',
 	    title: 'Modaki list:',
 	    id: 'portal-list',
 	    width: 700
@@ -61,7 +61,7 @@ window.plugin.modoakilist.showPL = function (portal_list) {
     }
 };
 
-window.plugin.modoakilist.collectPL = async function() {
+window.plugin.modakilist.collectPL = async function() {
     var list = $('<div>');
     var portal_list = [];
 
@@ -96,14 +96,14 @@ window.plugin.modoakilist.collectPL = async function() {
 
     console.log ("portal_list: " + portal_list);
     console.log ("count: " + count);
-    window.plugin.modoakilist.showPL (portal_list);
+    window.plugin.modakilist.showPL (portal_list);
 };
 
-window.plugin.modoakilist.onPaneChanged = function(pane) {
-  if(pane === "plugin-modoakilist")
-    window.plugin.modoakilist.collectPL();
+window.plugin.modakilist.onPaneChanged = function(pane) {
+  if(pane === "plugin-modakilist")
+    window.plugin.modakilist.collectPL();
   else
-    $("#modoakilist").remove()
+    $("#modakilist").remove()
 };
 
 // ============================================================
@@ -125,13 +125,13 @@ function wrapper(plugin_info) {
   // The entry point for this plugin.
   function setup() {
       if (window.useAppPanes()) {
-	  app.addPane("plugin-modoakilist", "Modaki list", "ic_action_paste");
-	  addHook("paneChanged", window.plugin.modoakilist.onPaneChanged);
+	  app.addPane("plugin-modakilist", "Modaki list", "ic_action_paste");
+	  addHook("paneChanged", window.plugin.modakilist.onPaneChanged);
       } else {
 	  IITC.toolbox.addButton({
 	      label: 'Modaki list',
 	      title: 'Display a list of modaki portals in the current view [t]',
-	      action: window.plugin.modoakilist.collectPL,
+	      action: window.plugin.modakilist.collectPL,
 	      accesskey: 't',
 	  });
       }

@@ -1,26 +1,26 @@
 // ==UserScript==
 // @author         gyontarl
-// @name           Itomai list
+// @name           Modaki list
 // @category       Info
 // @version        0.0.1
-// @description    Display itomai portals
+// @description    Display modaki portals
 // @match          https://intel.ingress.com/*
 // @grant          none
 // ==/UserScript==
 
 // Disclaimer
-// メニューの「Itomai list」を押すと，P8 Ito- ポータルの一覧が出ます．
+// メニューの「Itomai list」を押すと，ENL P8 Mod空きポータルの一覧が出ます．
 // 存在しない時は空リストが表示されます（「見つかりませんでした」とかは出ません）
 // async/awaitでクエリを逐次処理してるので，サーバ負荷は低いはず．
-// その代わり，P8のポータル数が多いとクエリ処理に時間がかかります
+// その代わり，ENL P8のポータル数が多いとクエリ処理に時間がかかります
 // (数十秒〜数分）
 // また，それなりに垢バンリスクがあるので乱用は避けましょう．
 // サーバが502 Bad Gatewayを返した時のエラー処理はサボってます
 // (リトライとかはしてません)
 
-window.plugin.itomailist = function() {};
+window.plugin.modakilist = function() {};
 
-window.plugin.itomailist.showPL = function (portal_list) {
+window.plugin.modoakilist.showPL = function (portal_list) {
     var list = $('<div>');
 
     $.each(portal_list, function(i, portal) {
@@ -38,8 +38,8 @@ window.plugin.itomailist.showPL = function (portal_list) {
     });
 
     if (window.useAppPanes()) {
-	$('<div id="itomailist">').append(list).appendTo(document.body);
-	$("#itomailist").css ({
+	$('<div id="modoakilist">').append(list).appendTo(document.body);
+	$("#modoakilist").css ({
 	    "background": "transparent",
 	    //	  "background": "green",
 	    "border": "0 none",
@@ -52,16 +52,16 @@ window.plugin.itomailist.showPL = function (portal_list) {
 	});
     } else {
 	dialog({
-	    html: $('<div id="itomailist">').append(list),
-	    dialogClass: 'ui-dialog-itomailist',
-	    title: 'Itomai list:',
+	    html: $('<div id="modoakilist">').append(list),
+	    dialogClass: 'ui-dialog-modoakilist',
+	    title: 'Modaki list:',
 	    id: 'portal-list',
 	    width: 700
 	});
     }
 };
 
-window.plugin.itomailist.collectPL = async function() {
+window.plugin.modoakilist.collectPL = async function() {
     var list = $('<div>');
     var portal_list = [];
 
@@ -78,17 +78,15 @@ window.plugin.itomailist.collectPL = async function() {
 	console.log ("team: " + portal.options.team);
 	console.log ("level: " + portal.options.data.level);
 	console.log ("guid: " + portal.options.guid);
-	// if (portal.options.team != 2) continue;
+	if (portal.options.team != 2) continue;
 	if (portal.options.data.level != 8) continue;
 	
 	count++;
 	await portalDetail.request(portal.options.guid).then (details => {
-	    var target_mod = "Ito En Transmuter (-)";
-	    // var target_mod = "Portal Shield";
-
 	    for (var i = 0; i < 4; i++) {
-		if (details.mods [i] && details.mods [i].name == target_mod) {
-		    console.log ("pushed!! " + details.mods [i].name);
+		console.log ("details.mods [i]: " + details.mods [i]);
+		if (!details.mods [i]) {
+		    console.log ("pushed!! " + details.mods [i]);
 		    portal_list.push (portal);
 		    break;
 		}
@@ -98,14 +96,14 @@ window.plugin.itomailist.collectPL = async function() {
 
     console.log ("portal_list: " + portal_list);
     console.log ("count: " + count);
-    window.plugin.itomailist.showPL (portal_list);
+    window.plugin.modoakilist.showPL (portal_list);
 };
 
-window.plugin.itomailist.onPaneChanged = function(pane) {
-  if(pane === "plugin-itomailist")
-    window.plugin.itomailist.collectPL();
+window.plugin.modoakilist.onPaneChanged = function(pane) {
+  if(pane === "plugin-modoakilist")
+    window.plugin.modoakilist.collectPL();
   else
-    $("#itomailist").remove()
+    $("#modoakilist").remove()
 };
 
 // ============================================================
@@ -116,48 +114,36 @@ function wrapper(plugin_info) {
   if(typeof window.plugin !== 'function') window.plugin = function() {};
 
   // Name of the IITC build for first-party plugins
-  plugin_info.buildName = 'Itomai list';
+  plugin_info.buildName = 'Modaki list';
 
   // Datetime-derived version of the plugin
   plugin_info.dateTimeVersion = '20240315144500';
 
   // ID/name of the plugin
-  plugin_info.pluginId = 'Itomai list';
+  plugin_info.pluginId = 'Modaki list';
 
   // The entry point for this plugin.
   function setup() {
-  window.plugin.itomailist.FACTION_FILTERS = window.TEAM_NAMES;
-//  window.plugin.itomailist.FACTION_ABBREVS = window.plugin.itomailist.FACTION_FILTERS.map(abbreviate);
-  window.plugin.itomailist.ALL_FACTION_FILTERS = ['All', ...window.plugin.itomailist.FACTION_FILTERS];
-  window.plugin.itomailist.HISTORY_FILTERS = ['Visited', 'Captured', 'Scout Controlled'];
-  window.plugin.itomailist.FILTERS = [...window.plugin.itomailist.ALL_FACTION_FILTERS, ...window.plugin.itomailist.HISTORY_FILTERS];
-
-  window.plugin.itomailist.listPortals = [];
-  window.plugin.itomailist.sortBy = 1; // second column: level
-  window.plugin.itomailist.sortOrder = -1;
-//  window.plugin.itomailist.counts = zeroCounts();
-  window.plugin.itomailist.filter = 0;
-
-  if (window.useAppPanes()) {
-    app.addPane("plugin-itomailist", "Itomai list", "ic_action_paste");
-    addHook("paneChanged", window.plugin.itomailist.onPaneChanged);
-  } else {
-    IITC.toolbox.addButton({
-      label: 'Itomai list',
-      title: 'Display a list of itomai portals in the current view [t]',
-      action: window.plugin.itomailist.collectPL,
-      accesskey: 't',
-    });
+      if (window.useAppPanes()) {
+	  app.addPane("plugin-modoakilist", "Modaki list", "ic_action_paste");
+	  addHook("paneChanged", window.plugin.modoakilist.onPaneChanged);
+      } else {
+	  IITC.toolbox.addButton({
+	      label: 'Modaki list',
+	      title: 'Display a list of modaki portals in the current view [t]',
+	      action: window.plugin.modoakilist.collectPL,
+	      accesskey: 't',
+	  });
+      }
+      
+      console.log ("setup called#1");
+      $("<style>")
+	  .prop("type", "text/css")
+	  .html('@include_string:portals-list.css@')
+	  .appendTo("head");
+      console.log ("setup called#2");
   }
-
-    console.log ("setup called#1");
-  $("<style>")
-    .prop("type", "text/css")
-    .html('@include_string:portals-list.css@')
-    .appendTo("head");
-    console.log ("setup called#2");
-  }
-
+    
   // Add an info property for IITC's plugin system
   setup.info = plugin_info;
 

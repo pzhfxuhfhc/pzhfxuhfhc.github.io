@@ -9,7 +9,7 @@
 // ==/UserScript==
 
 // Disclaimer
-// メニューの「Itomai list」を押すと，ENL P8 Ito- ポータルの一覧が出ます．
+// メニューの「Itomai list」を押すと，P8 Ito- ポータルの一覧が出ます．
 // 存在しない時は空リストが表示されます（「見つかりませんでした」とかは出ません）
 // async/awaitでクエリを逐次処理してるので，サーバ負荷は低いはず．
 // その代わり，ENL P8のポータル数が多いとクエリ処理に時間がかかります
@@ -77,7 +77,7 @@ window.plugin.itomailist.collectPL = async function() {
 	console.log ("team: " + portal.options.team);
 	console.log ("level: " + portal.options.data.level);
 	console.log ("guid: " + portal.options.guid);
-	if (portal.options.team != 2) continue;
+	// if (portal.options.team != 2) continue;
 	if (portal.options.data.level != 8) continue;
 	
 	count++;
